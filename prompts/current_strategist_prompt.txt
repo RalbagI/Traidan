@@ -1,0 +1,2 @@
+Compatibility note: Traidan's hourly LLM strategist has been renamed Trading
+Master (TM). The primary prompt is `prompts/current_trading_master_prompt.txt`.

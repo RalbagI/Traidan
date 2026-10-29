@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://traidan.local/schemas/llm_context_pack.schema.json",
+  "title": "Future multi-asset LLM context pack",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "context_id",
+    "cycle_id",
+    "as_of",
+    "portfolio_state_ref",
+    "risk_state_ref",
+    "approved_instrument_ids",
+    "signal_refs",
+    "graph_refs",
+    "historical_analog_refs",
+    "unavailable_source_ids",
+    "stale_source_ids",
+    "risk_constraints"
+  ],
+  "properties": {
+    "schema_version": { "type": "integer", "const": 1 },
+    "context_id": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "cycle_id": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "as_of": { "type": "string", "format": "date-time" },
+    "portfolio_state_ref": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "risk_state_ref": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "approved_instrument_ids": { "type": "array", "minItems": 1, "maxItems": 256, "uniqueItems": true, "items": { "type": "string", "minLength": 1, "maxLength": 120 } },
+    "signal_refs": { "type": "array", "maxItems": 512, "uniqueItems": true, "items": { "type": "string", "minLength": 1, "maxLength": 120 } },
+    "graph_refs": { "type": "array", "maxItems": 512, "uniqueItems": true, "items": { "type": "string", "minLength": 1, "maxLength": 120 } },
+    "historical_analog_refs": { "type": "array", "maxItems": 128, "uniqueItems": true, "items": { "type": "string", "minLength": 1, "maxLength": 120 } },
+    "unavailable_source_ids": { "type": "array", "maxItems": 50, "uniqueItems": true, "items": { "type": "string", "pattern": "^[a-z][a-z0-9_]{2,80}$" } },
+    "stale_source_ids": { "type": "array", "maxItems": 50, "uniqueItems": true, "items": { "type": "string", "pattern": "^[a-z][a-z0-9_]{2,80}$" } },
+    "risk_constraints": {
+      "type": "object",
+      "additionalProperties": { "type": "number" },
+      "minProperties": 1,
+      "maxProperties": 32
+    }
+  }
+}

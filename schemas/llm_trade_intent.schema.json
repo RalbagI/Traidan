@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://traidan.local/schemas/llm_trade_intent.schema.json",
+  "title": "Future multi-asset LLM trade intent",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "cycle_id",
+    "sequence",
+    "as_of",
+    "model_id",
+    "prompt_template_hash",
+    "commands",
+    "risk_assessment",
+    "memory_updates"
+  ],
+  "properties": {
+    "schema_version": { "type": "integer", "const": 1 },
+    "cycle_id": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "sequence": { "type": "integer", "minimum": 1 },
+    "as_of": { "type": "string", "format": "date-time" },
+    "model_id": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "prompt_template_hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "commands": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 32,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["instrument_id", "direction", "target_weight", "max_notional_usd", "horizon", "confidence", "thesis", "evidence_refs"],
+        "properties": {
+          "instrument_id": { "type": "string", "minLength": 1, "maxLength": 120 },
+          "direction": { "type": "string", "enum": ["long", "short", "flat"] },
+          "target_weight": { "type": "number", "minimum": -0.95, "maximum": 0.95 },
+          "max_notional_usd": { "type": "number", "minimum": 0 },
+          "horizon": { "type": "string", "enum": ["intraday", "short", "medium", "long"] },
+          "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+          "thesis": { "type": "string", "minLength": 1, "maxLength": 1000 },
+          "evidence_refs": { "type": "array", "minItems": 1, "maxItems": 64, "uniqueItems": true, "items": { "type": "string", "minLength": 1, "maxLength": 120 } }
+        },
+        "allOf": [
+          {
+            "if": { "properties": { "direction": { "const": "long" } }, "required": ["direction"] },
+            "then": { "properties": { "target_weight": { "minimum": 0 } } }
+          },
+          {
+            "if": { "properties": { "direction": { "const": "short" } }, "required": ["direction"] },
+            "then": { "properties": { "target_weight": { "maximum": 0 } } }
+          },
+          {
+            "if": { "properties": { "direction": { "const": "flat" } }, "required": ["direction"] },
+            "then": { "properties": { "target_weight": { "const": 0 } } }
+          }
+        ]
+      }
+    },
+    "risk_assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["summary", "uncertainty", "risk_limit_verdict"],
+      "properties": {
+        "summary": { "type": "string", "minLength": 1, "maxLength": 1000 },
+        "uncertainty": { "type": "string", "minLength": 1, "maxLength": 1000 },
+        "risk_limit_verdict": { "type": "string", "enum": ["pass", "review", "hold", "reject"] }
+      }
+    },
+    "memory_updates": { "type": "array", "minItems": 1, "maxItems": 16, "uniqueItems": true, "items": { "type": "string", "minLength": 1, "maxLength": 240 } }
+  }
+}

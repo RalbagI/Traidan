@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://traidan.local/schemas/llm_research_learning_delta.schema.json",
+  "title": "LLM Equity Research Learning Delta",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "run_id",
+    "arm",
+    "cycle_id",
+    "matured_at",
+    "outcome_ids",
+    "before_hash",
+    "after_hash",
+    "frozen",
+    "ewma_alpha"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "run_id": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "arm": { "type": "string", "minLength": 1, "maxLength": 80 },
+    "cycle_id": { "type": "string", "minLength": 1, "maxLength": 160 },
+    "matured_at": { "type": "string", "format": "date-time" },
+    "outcome_ids": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1, "maxLength": 200 }
+    },
+    "before_hash": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "after_hash": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "frozen": { "type": "boolean" },
+    "ewma_alpha": { "type": "number", "minimum": 0, "maximum": 1 }
+  }
+}

@@ -1,10 +1,10 @@
 # Rust
 /target/
-Cargo.lock
 
 # Python
 __pycache__/
 *.py[cod]
+*.so
 *.egg-info/
 dist/
 .venv/
@@ -16,6 +16,15 @@ wandb/
 # Node
 node_modules/
 frontend/dist/
+.npm/
+
+# Firebase
+.firebase/
+firebase-debug.log
+firebase-debug.*.log
+*.service-account.json
+firebase-service-account*.json
+serviceAccount*.json
 
 # Terraform
 deployment/terraform/.terraform/
@@ -28,6 +37,32 @@ deployment/terraform/*.tfvars
 .env.*
 *.pem
 *.key
+
+# Test artifacts
+.coverage
+htmlcov/
+.pytest_cache/
+output/playwright/
+/logs/*
+!/logs/.gitkeep
+
+# Local runtime state and private assistant configuration
+.agent/
+.agents/
+.claude/
+.codex/
+.cursor/
+.gemini/
+.mcp.json
+
+# Local infrastructure state and credential containers
+**/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.p12
+*.pfx
+*.keystore
 
 # OS
 .DS_Store

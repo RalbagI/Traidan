@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://traidan.local/schemas/llm_review_result_v3.codex.schema.json",
+  "title": "Codex structured-output transport for forced-aggressive reviews",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "verdict", "intents", "risk_flags", "abstain_reason"],
+  "properties": {
+    "schema_version": { "type": "integer", "enum": [3] },
+    "verdict": { "type": "string", "enum": ["trade", "abstain"] },
+    "intents": {
+      "type": "array", "maxItems": 3,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": [
+          "candidate_id", "direction", "horizon", "confidence", "thesis",
+          "invalidation", "notional_usd", "evidence_refs", "edge_class",
+          "expected_excess_return_bps", "probability_positive", "return_p10_bps",
+          "return_p50_bps", "return_p90_bps"
+        ],
+        "properties": {
+          "candidate_id": { "type": "string" },
+          "direction": { "type": "string", "enum": ["long", "short"] },
+          "horizon": { "type": "string", "enum": ["30m", "60m", "close", "1d", "5d"] },
+          "confidence": { "type": "number" },
+          "thesis": { "type": "string" },
+          "invalidation": { "type": "string" },
+          "notional_usd": { "type": "number" },
+          "evidence_refs": { "type": "array", "maxItems": 6, "items": { "type": "string" } },
+          "edge_class": { "type": "string", "enum": ["positive_edge", "least_bad_forced", "risk_reduction"] },
+          "expected_excess_return_bps": { "type": "number" },
+          "probability_positive": { "type": "number" },
+          "return_p10_bps": { "type": "number" },
+          "return_p50_bps": { "type": "number" },
+          "return_p90_bps": { "type": "number" }
+        }
+      }
+    },
+    "risk_flags": { "type": "array", "maxItems": 12, "items": { "type": "string" } },
+    "abstain_reason": { "type": ["string", "null"] }
+  }
+}

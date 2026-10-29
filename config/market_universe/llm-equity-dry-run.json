@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "universe_version": "llm-equity-dynamic-paper-v1",
+  "market_family": "llm_equity_dry_run",
+  "provider": "alpaca",
+  "initial_cash_usd": 10000.0,
+  "research_symbol_limit": 100,
+  "regular_session": {
+    "timezone": "America/New_York",
+    "open": "09:30",
+    "close": "16:00"
+  },
+  "allowed_sessions_for_orders": [
+    "rth"
+  ],
+  "core_symbols": [
+    "SPY",
+    "QQQ",
+    "IWM",
+    "TLT",
+    "GLD",
+    "XLK",
+    "XLF",
+    "XLE",
+    "XLV",
+    "AAPL",
+    "MSFT",
+    "NVDA",
+    "AMZN",
+    "GOOGL",
+    "META",
+    "TSLA"
+  ],
+  "instruments": [
+    { "symbol": "SPY", "asset_class": "equity_etf", "venue": "us_equities_paper", "currency": "USD", "timezone": "America/New_York", "lot_size": 1, "tick_size": 0.01 },
+    { "symbol": "QQQ", "asset_class": "equity_etf", "venue": "us_equities_paper", "currency": "USD", "timezone": "America/New_York", "lot_size": 1, "tick_size": 0.01 },
+    { "symbol": "IWM", "asset_class": "equity_etf", "venue": "us_equities_paper", "currency": "USD", "timezone": "America/New_York", "lot_size": 1, "tick_size": 0.01 },
+    { "symbol": "TLT", "asset_class": "equity_etf", "venue": "us_equities_paper", "currency": "USD", "timezone": "America/New_York", "lot_size": 1, "tick_size": 0.01 },
+    { "symbol": "GLD", "asset_class": "equity_etf", "venue": "us_equities_paper", "currency": "USD", "timezone": "America/New_York", "lot_size": 1, "tick_size": 0.01 },
+    { "symbol": "XLK", "asset_class": "equity_etf", "venue": "us_equities_paper", "currency": "USD", "timezone": "America/New_York", "lot_size": 1, "tick_size": 0.01 },
+    { "symbol": "XLF", "asset_class": "equity_etf", "venue": "us_equities_paper", "currency": "USD", "timezone": "America/New_York", "lot_size": 1, "tick_size": 0.01 },
+    { "symbol": "XLE", "asset_class": "equity_etf", "venue": "us_equities_paper", "currency": "USD", "timezone": "America/New_York", "lot_size": 1, "tick_size": 0.01 },
+    { "symbol": "XLV", "asset_class": "equity_etf", "venue": "us_equities_paper", "currency": "USD", "timezone": "America/New_York", "lot_size": 1, "tick_size": 0.01 },
+    { "symbol": "AAPL", "asset_class": "equity_stock", "venue": "us_equities_paper", "currency": "USD", "timezone": "America/New_York", "lot_size": 1, "tick_size": 0.01 },
+    { "symbol": "MSFT", "asset_class": "equity_stock", "venue": "us_equities_paper", "currency": "USD", "timezone": "America/New_York", "lot_size": 1, "tick_size": 0.01 },
+    { "symbol": "NVDA", "asset_class": "equity_stock", "venue": "us_equities_paper", "currency": "USD", "timezone": "America/New_York", "lot_size": 1, "tick_size": 0.01 },
+    { "symbol": "AMZN", "asset_class": "equity_stock", "venue": "us_equities_paper", "currency": "USD", "timezone": "America/New_York", "lot_size": 1, "tick_size": 0.01 },
+    { "symbol": "GOOGL", "asset_class": "equity_stock", "venue": "us_equities_paper", "currency": "USD", "timezone": "America/New_York", "lot_size": 1, "tick_size": 0.01 },
+    { "symbol": "META", "asset_class": "equity_stock", "venue": "us_equities_paper", "currency": "USD", "timezone": "America/New_York", "lot_size": 1, "tick_size": 0.01 },
+    { "symbol": "TSLA", "asset_class": "equity_stock", "venue": "us_equities_paper", "currency": "USD", "timezone": "America/New_York", "lot_size": 1, "tick_size": 0.01 }
+  ]
+}

@@ -11,6 +11,21 @@ pub struct CacheLinePadded<T> {
 
 impl<T> CacheLinePadded<T> {
     pub fn new(val: T) -> Self {
-        Self { inner: val, _pad: [] }
+        Self {
+            inner: val,
+            _pad: [],
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::mem::align_of;
+    use std::sync::atomic::AtomicU64;
+
+    #[test]
+    fn cache_line_padded_aligns_to_64_bytes() {
+        assert_eq!(align_of::<CacheLinePadded<AtomicU64>>(), 64);
     }
 }

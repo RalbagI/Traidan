@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://traidan.local/schemas/llm_research_specialist_opinion_v2.schema.json",
+  "title": "LLM Equity Research SpecialistOpinion V2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "abstain", "abstention_reason", "risk_veto", "forecasts"],
+  "properties": {
+    "schema_version": { "type": "integer", "const": 2 },
+    "abstain": {
+      "type": "boolean",
+      "description": "Must be true exactly when forecasts is empty; otherwise must be false."
+    },
+    "abstention_reason": {
+      "type": "string",
+      "maxLength": 500,
+      "description": "Must be non-empty when abstain is true and the empty string when abstain is false."
+    },
+    "risk_veto": {
+      "type": "boolean",
+      "description": "May be true only for the risk_cost_analyst role; every other specialist must set false and use abstain for insufficient evidence."
+    },
+    "forecasts": {
+      "type": "array",
+      "maxItems": 3,
+      "description": "Empty requires abstain=true with a reason; one to three items require abstain=false and an empty abstention_reason.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "symbol", "direction", "horizon", "strategy_book", "discovery_lane",
+          "thesis", "evidence_refs", "confidence", "expected_alpha_bps",
+          "downside_bps", "probability_positive", "return_p10_bps",
+          "return_p50_bps", "return_p90_bps"
+        ],
+        "properties": {
+          "symbol": { "type": "string", "pattern": "^(?:[A-Z][A-Z0-9.\\-]{0,9}|SYM[0-9]{3,6})$" },
+          "direction": { "type": "string", "enum": ["long", "avoid"] },
+          "horizon": { "type": "string", "enum": ["30m", "60m", "close", "1d", "5d"] },
+          "strategy_book": { "type": "string", "minLength": 1, "maxLength": 80 },
+          "discovery_lane": { "type": "string", "minLength": 1, "maxLength": 80 },
+          "thesis": { "type": "string", "minLength": 1, "maxLength": 1000 },
+          "evidence_refs": {
+            "type": "array", "minItems": 1, "maxItems": 16,
+            "items": { "type": "string", "minLength": 1, "maxLength": 160 }
+          },
+          "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+          "expected_alpha_bps": { "type": "number", "minimum": -10000, "maximum": 10000 },
+          "downside_bps": { "type": "number", "minimum": 0, "maximum": 10000 },
+          "probability_positive": { "type": "number", "minimum": 0, "maximum": 1 },
+          "return_p10_bps": { "type": "number", "minimum": -10000, "maximum": 10000 },
+          "return_p50_bps": { "type": "number", "minimum": -10000, "maximum": 10000 },
+          "return_p90_bps": { "type": "number", "minimum": -10000, "maximum": 10000 }
+        }
+      }
+    }
+  }
+}

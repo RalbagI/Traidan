@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://traidan.local/schemas/risk_approved_order.schema.json",
+  "title": "Future multi-asset risk-approved order",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "approval_id",
+    "cycle_id",
+    "intent_sequence",
+    "as_of",
+    "verdict",
+    "reason",
+    "instrument_id",
+    "side",
+    "quantity",
+    "notional_usd",
+    "route",
+    "time_in_force",
+    "context_id",
+    "intent_ref",
+    "risk_snapshot_ref",
+    "instrument_master_version"
+  ],
+  "properties": {
+    "schema_version": { "type": "integer", "const": 1 },
+    "approval_id": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "cycle_id": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "intent_sequence": { "type": "integer", "minimum": 1 },
+    "as_of": { "type": "string", "format": "date-time" },
+    "verdict": { "type": "string", "enum": ["approved", "rejected", "hold"] },
+    "reason": { "type": "string", "minLength": 1, "maxLength": 1000 },
+    "instrument_id": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "side": { "type": "string", "enum": ["buy", "sell", "sell_short", "buy_to_cover", "hold"] },
+    "quantity": { "type": "number", "minimum": 0 },
+    "notional_usd": { "type": "number", "minimum": 0 },
+    "route": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "time_in_force": { "type": "string", "enum": ["day", "gtc", "ioc", "fok"] },
+    "context_id": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "intent_ref": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "risk_snapshot_ref": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "instrument_master_version": { "type": "string", "minLength": 1, "maxLength": 120 }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "verdict": { "const": "approved" } }, "required": ["verdict"] },
+      "then": {
+        "properties": {
+          "side": { "not": { "const": "hold" } },
+          "quantity": { "exclusiveMinimum": 0 },
+          "notional_usd": { "exclusiveMinimum": 0 }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "verdict": { "enum": ["rejected", "hold"] } }, "required": ["verdict"] },
+      "then": {
+        "properties": {
+          "side": { "const": "hold" },
+          "quantity": { "const": 0 },
+          "notional_usd": { "const": 0 }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,158 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://traidan.local/schemas/llm_research_run_manifest.schema.json",
+  "title": "LLM Equity Research Run Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "run_id",
+    "status",
+    "created_at",
+    "window",
+    "initial_cash_usd_per_arm",
+    "paper_only",
+    "resident_epoch_unchanged",
+    "arms",
+    "specialist_roles",
+    "arbiter_role",
+    "model",
+    "cost_policy",
+    "dataset",
+    "fingerprints",
+    "schema_hashes",
+    "prompt_template_hashes",
+    "research_labels"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "run_id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,119}$" },
+    "status": { "type": "string", "enum": ["prepared", "running", "complete", "failed"] },
+    "created_at": { "type": "string", "format": "date-time" },
+    "window": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["start", "end", "semantics"],
+      "properties": {
+        "start": { "type": "string", "format": "date-time" },
+        "end": { "type": "string", "format": "date-time" },
+        "semantics": { "const": "half_open" }
+      }
+    },
+    "initial_cash_usd_per_arm": { "const": 10000.0 },
+    "paper_only": { "const": true },
+    "resident_epoch_unchanged": { "const": true },
+    "research_protocol": { "type": "string", "enum": ["swarm-v1", "swarm-v2"] },
+    "rust_research_policy": { "type": "string", "enum": ["forced_aggressive", "long_risk_adjusted"] },
+    "arms": {
+      "type": "array",
+      "prefixItems": [
+        { "const": "anonymized_frozen" },
+        { "const": "anonymized_adaptive" },
+        { "const": "semantic_frozen" },
+        { "const": "semantic_adaptive" },
+        { "const": "single_reviewer_reference" }
+      ],
+      "items": false,
+      "minItems": 5,
+      "maxItems": 5
+    },
+    "specialist_roles": {
+      "type": "array",
+      "prefixItems": [
+        { "const": "catalyst_scout" },
+        { "const": "text_edge_analyst" },
+        { "const": "neglected_small_cap_analyst" },
+        { "const": "macro_fed_analyst" },
+        { "const": "technical_microstructure_analyst" },
+        { "const": "short_contrarian_analyst" },
+        { "const": "risk_cost_analyst" },
+        { "const": "portfolio_learning_analyst" }
+      ],
+      "items": false,
+      "minItems": 8,
+      "maxItems": 8
+    },
+    "arbiter_role": { "const": "final_arbiter" },
+    "model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "effort"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "effort": { "type": "string", "minLength": 1, "maxLength": 32 }
+      }
+    },
+    "cost_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["commission_bps", "financing_apr", "borrow_apr", "fixed_cost_usd_per_arm"],
+      "properties": {
+        "commission_bps": { "type": "number", "minimum": 0 },
+        "financing_apr": { "type": "number", "minimum": 0 },
+        "borrow_apr": { "type": "number", "minimum": 0 },
+        "fixed_cost_usd_per_arm": { "type": "number", "minimum": 0 }
+      }
+    },
+    "dataset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["object", "completeness", "completeness_reasons", "scheduled_cycles", "rth_cycles"],
+      "properties": {
+        "object": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "completeness": { "type": "string", "enum": ["faithful_counterfactual", "limited_scenario", "invalid"] },
+        "completeness_reasons": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1, "maxLength": 120 },
+          "uniqueItems": true
+        },
+        "scheduled_cycles": { "type": "integer", "minimum": 0 },
+        "rth_cycles": { "type": "integer", "minimum": 0 },
+        "quote_partitions": { "type": "integer", "minimum": 0 },
+        "universe_size": { "type": "integer", "minimum": 0, "maximum": 250 },
+        "historical_feed": { "type": "string", "enum": ["iex", "sip"] }
+      }
+    },
+    "fingerprints": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "dataset", "calendar", "policy", "schemas", "prompt_templates", "model", "catalog"],
+      "properties": {
+        "code": { "type": "string", "minLength": 1, "maxLength": 96 },
+        "dataset": { "type": "string", "minLength": 1, "maxLength": 96 },
+        "calendar": { "type": "string", "minLength": 1, "maxLength": 96 },
+        "policy": { "type": "string", "minLength": 1, "maxLength": 96 },
+        "schemas": { "type": "string", "minLength": 1, "maxLength": 96 },
+        "prompt_templates": { "type": "string", "minLength": 1, "maxLength": 96 },
+        "model": { "type": "string", "minLength": 1, "maxLength": 96 },
+        "catalog": { "type": "string", "minLength": 1, "maxLength": 96 },
+        "execution_policy": { "type": "string", "minLength": 1, "maxLength": 96 }
+      }
+    },
+    "schema_hashes": {
+      "type": "object",
+      "propertyNames": { "pattern": "^[A-Za-z0-9._-]{1,120}$" },
+      "additionalProperties": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+    },
+    "prompt_template_hashes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["specialist", "arbiter", "single_reviewer"],
+      "properties": {
+        "specialist": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "arbiter": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "single_reviewer": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+      }
+    },
+    "research_labels": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["anonymized", "semantic", "full_period"],
+      "properties": {
+        "anonymized": { "const": "confirmatory_counterfactual" },
+        "semantic": { "const": "exploratory_model_memory_risk" },
+        "full_period": { "const": "descriptive_only" }
+      }
+    }
+  }
+}

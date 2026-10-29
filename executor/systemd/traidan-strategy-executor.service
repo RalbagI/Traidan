@@ -1,0 +1,39 @@
+[Unit]
+Description=Traidan deterministic strategy executor
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=traidan-executor
+Group=traidan-executor
+WorkingDirectory=/opt/traidan
+Environment=TRAIDAN_ALLOW_LIVE_ORDERS=false
+Environment=TRAIDAN_STRATEGY_PARAMETERS_PATH=/opt/traidan/runtime/strategy_parameters.json
+Environment=TRAIDAN_LIVE_APPROVAL_PATH=/etc/traidan/live-execution-approved.json
+Environment=TRAIDAN_EXECUTOR_KILL_SWITCH_PATH=/run/traidan/kill-switch
+EnvironmentFile=-/etc/traidan/coinbase-fix.env
+ExecStart=/opt/traidan/bin/strategy-executor
+Restart=always
+RestartSec=2
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictNamespaces=true
+RestrictRealtime=true
+RestrictSUIDSGID=true
+MemoryDenyWriteExecute=true
+SystemCallArchitectures=native
+SystemCallFilter=@system-service
+LockPersonality=true
+CapabilityBoundingSet=
+AmbientCapabilities=
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+ReadWritePaths=/opt/traidan/runtime /run/traidan /var/log/traidan
+
+[Install]
+WantedBy=multi-user.target

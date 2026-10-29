@@ -1,0 +1,21 @@
+{
+	admin off
+}
+
+{$TRAIDAN_WSS_HOST} {
+	@stream path /stream
+
+	handle @stream {
+		header Strict-Transport-Security "max-age=31536000; includeSubDomains"
+
+		reverse_proxy 127.0.0.1:8080 {
+			header_up Host {host}
+			header_up X-Forwarded-Proto https
+			header_up X-Forwarded-For {remote_host}
+		}
+	}
+
+	handle {
+		respond "not found\n" 404
+	}
+}

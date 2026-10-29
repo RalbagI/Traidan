@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://traidan.local/schemas/llm_review_result_v2.codex.schema.json",
+  "title": "Codex structured-output transport for the compact equity review",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "verdict", "intents", "risk_flags", "abstain_reason"],
+  "properties": {
+    "schema_version": { "type": "integer", "enum": [2] },
+    "verdict": { "type": "string", "enum": ["trade", "abstain"] },
+    "intents": {
+      "type": "array",
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["candidate_id", "direction", "horizon", "confidence", "thesis", "invalidation", "notional_usd", "evidence_refs"],
+        "properties": {
+          "candidate_id": { "type": "string" },
+          "direction": { "type": "string", "enum": ["long", "short", "flat"] },
+          "horizon": { "type": "string", "enum": ["30m", "60m", "close", "1d", "5d"] },
+          "confidence": { "type": "number" },
+          "thesis": { "type": "string" },
+          "invalidation": { "type": "string" },
+          "notional_usd": { "type": "number" },
+          "evidence_refs": {
+            "type": "array",
+            "maxItems": 6,
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    "risk_flags": {
+      "type": "array",
+      "maxItems": 12,
+      "items": { "type": "string" }
+    },
+    "abstain_reason": { "type": ["string", "null"] }
+  }
+}

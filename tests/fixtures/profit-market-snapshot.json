@@ -1,0 +1,716 @@
+{
+  "snapshot_id": "llm-equity-2026-05-28T14:30:00Z",
+  "as_of": "2026-05-28T14:30:00Z",
+  "market_session": "rth",
+  "symbols": [
+    "SPY",
+    "QQQ",
+    "IWM",
+    "TLT",
+    "GLD",
+    "XLK",
+    "XLF",
+    "XLE",
+    "XLV",
+    "AAPL",
+    "MSFT",
+    "NVDA",
+    "AMZN",
+    "GOOGL",
+    "META",
+    "TSLA"
+  ],
+  "latest_bars": {
+    "SPY": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 499.5,
+      "high": 501.0,
+      "low": 499.0,
+      "close": 500.0,
+      "volume": 1000000,
+      "source": "alpaca_market_data"
+    },
+    "QQQ": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 109.5,
+      "high": 111.0,
+      "low": 109.0,
+      "close": 110.0,
+      "volume": 1000001,
+      "source": "alpaca_market_data"
+    },
+    "IWM": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 119.5,
+      "high": 121.0,
+      "low": 119.0,
+      "close": 120.0,
+      "volume": 1000002,
+      "source": "alpaca_market_data"
+    },
+    "TLT": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 129.5,
+      "high": 131.0,
+      "low": 129.0,
+      "close": 130.0,
+      "volume": 1000003,
+      "source": "alpaca_market_data"
+    },
+    "GLD": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 139.5,
+      "high": 141.0,
+      "low": 139.0,
+      "close": 140.0,
+      "volume": 1000004,
+      "source": "alpaca_market_data"
+    },
+    "XLK": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 149.5,
+      "high": 151.0,
+      "low": 149.0,
+      "close": 150.0,
+      "volume": 1000005,
+      "source": "alpaca_market_data"
+    },
+    "XLF": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 159.5,
+      "high": 161.0,
+      "low": 159.0,
+      "close": 160.0,
+      "volume": 1000006,
+      "source": "alpaca_market_data"
+    },
+    "XLE": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 169.5,
+      "high": 171.0,
+      "low": 169.0,
+      "close": 170.0,
+      "volume": 1000007,
+      "source": "alpaca_market_data"
+    },
+    "XLV": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 179.5,
+      "high": 181.0,
+      "low": 179.0,
+      "close": 180.0,
+      "volume": 1000008,
+      "source": "alpaca_market_data"
+    },
+    "AAPL": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 189.5,
+      "high": 191.0,
+      "low": 189.0,
+      "close": 190.0,
+      "volume": 1000009,
+      "source": "alpaca_market_data"
+    },
+    "MSFT": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 199.5,
+      "high": 201.0,
+      "low": 199.0,
+      "close": 200.0,
+      "volume": 1000010,
+      "source": "alpaca_market_data"
+    },
+    "NVDA": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 209.5,
+      "high": 211.0,
+      "low": 209.0,
+      "close": 210.0,
+      "volume": 1000011,
+      "source": "alpaca_market_data"
+    },
+    "AMZN": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 219.5,
+      "high": 221.0,
+      "low": 219.0,
+      "close": 220.0,
+      "volume": 1000012,
+      "source": "alpaca_market_data"
+    },
+    "GOOGL": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 229.5,
+      "high": 231.0,
+      "low": 229.0,
+      "close": 230.0,
+      "volume": 1000013,
+      "source": "alpaca_market_data"
+    },
+    "META": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 239.5,
+      "high": 241.0,
+      "low": 239.0,
+      "close": 240.0,
+      "volume": 1000014,
+      "source": "alpaca_market_data"
+    },
+    "TSLA": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 249.5,
+      "high": 251.0,
+      "low": 249.0,
+      "close": 250.0,
+      "volume": 1000015,
+      "source": "alpaca_market_data"
+    }
+  },
+  "latest_quotes": {
+    "SPY": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "bid": 499.95,
+      "ask": 500.05,
+      "source": "alpaca_market_data"
+    },
+    "QQQ": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "bid": 109.95,
+      "ask": 110.05,
+      "source": "alpaca_market_data"
+    },
+    "IWM": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "bid": 119.95,
+      "ask": 120.05,
+      "source": "alpaca_market_data"
+    },
+    "TLT": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "bid": 129.95,
+      "ask": 130.05,
+      "source": "alpaca_market_data"
+    },
+    "GLD": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "bid": 139.95,
+      "ask": 140.05,
+      "source": "alpaca_market_data"
+    },
+    "XLK": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "bid": 149.95,
+      "ask": 150.05,
+      "source": "alpaca_market_data"
+    },
+    "XLF": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "bid": 159.95,
+      "ask": 160.05,
+      "source": "alpaca_market_data"
+    },
+    "XLE": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "bid": 169.95,
+      "ask": 170.05,
+      "source": "alpaca_market_data"
+    },
+    "XLV": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "bid": 179.95,
+      "ask": 180.05,
+      "source": "alpaca_market_data"
+    },
+    "AAPL": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "bid": 189.95,
+      "ask": 190.05,
+      "source": "alpaca_market_data"
+    },
+    "MSFT": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "bid": 199.95,
+      "ask": 200.05,
+      "source": "alpaca_market_data"
+    },
+    "NVDA": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "bid": 209.95,
+      "ask": 210.05,
+      "source": "alpaca_market_data"
+    },
+    "AMZN": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "bid": 219.95,
+      "ask": 220.05,
+      "source": "alpaca_market_data"
+    },
+    "GOOGL": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "bid": 229.95,
+      "ask": 230.05,
+      "source": "alpaca_market_data"
+    },
+    "META": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "bid": 239.95,
+      "ask": 240.05,
+      "source": "alpaca_market_data"
+    },
+    "TSLA": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "bid": 249.95,
+      "ask": 250.05,
+      "source": "alpaca_market_data"
+    }
+  },
+  "session_bars": {
+    "SPY": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 499.5,
+      "high": 501.0,
+      "low": 499.0,
+      "close": 500.0,
+      "volume": 1000000,
+      "source": "alpaca_market_data"
+    },
+    "QQQ": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 109.5,
+      "high": 111.0,
+      "low": 109.0,
+      "close": 110.0,
+      "volume": 1000001,
+      "source": "alpaca_market_data"
+    },
+    "IWM": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 119.5,
+      "high": 121.0,
+      "low": 119.0,
+      "close": 120.0,
+      "volume": 1000002,
+      "source": "alpaca_market_data"
+    },
+    "TLT": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 129.5,
+      "high": 131.0,
+      "low": 129.0,
+      "close": 130.0,
+      "volume": 1000003,
+      "source": "alpaca_market_data"
+    },
+    "GLD": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 139.5,
+      "high": 141.0,
+      "low": 139.0,
+      "close": 140.0,
+      "volume": 1000004,
+      "source": "alpaca_market_data"
+    },
+    "XLK": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 149.5,
+      "high": 151.0,
+      "low": 149.0,
+      "close": 150.0,
+      "volume": 1000005,
+      "source": "alpaca_market_data"
+    },
+    "XLF": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 159.5,
+      "high": 161.0,
+      "low": 159.0,
+      "close": 160.0,
+      "volume": 1000006,
+      "source": "alpaca_market_data"
+    },
+    "XLE": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 169.5,
+      "high": 171.0,
+      "low": 169.0,
+      "close": 170.0,
+      "volume": 1000007,
+      "source": "alpaca_market_data"
+    },
+    "XLV": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 179.5,
+      "high": 181.0,
+      "low": 179.0,
+      "close": 180.0,
+      "volume": 1000008,
+      "source": "alpaca_market_data"
+    },
+    "AAPL": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 189.5,
+      "high": 191.0,
+      "low": 189.0,
+      "close": 190.0,
+      "volume": 1000009,
+      "source": "alpaca_market_data"
+    },
+    "MSFT": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 199.5,
+      "high": 201.0,
+      "low": 199.0,
+      "close": 200.0,
+      "volume": 1000010,
+      "source": "alpaca_market_data"
+    },
+    "NVDA": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 209.5,
+      "high": 211.0,
+      "low": 209.0,
+      "close": 210.0,
+      "volume": 1000011,
+      "source": "alpaca_market_data"
+    },
+    "AMZN": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 219.5,
+      "high": 221.0,
+      "low": 219.0,
+      "close": 220.0,
+      "volume": 1000012,
+      "source": "alpaca_market_data"
+    },
+    "GOOGL": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 229.5,
+      "high": 231.0,
+      "low": 229.0,
+      "close": 230.0,
+      "volume": 1000013,
+      "source": "alpaca_market_data"
+    },
+    "META": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 239.5,
+      "high": 241.0,
+      "low": 239.0,
+      "close": 240.0,
+      "volume": 1000014,
+      "source": "alpaca_market_data"
+    },
+    "TSLA": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 249.5,
+      "high": 251.0,
+      "low": 249.0,
+      "close": 250.0,
+      "volume": 1000015,
+      "source": "alpaca_market_data"
+    }
+  },
+  "previous_daily_bars": {
+    "SPY": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 499.5,
+      "high": 501.0,
+      "low": 499.0,
+      "close": 500.0,
+      "volume": 1000000,
+      "source": "alpaca_market_data"
+    },
+    "QQQ": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 109.5,
+      "high": 111.0,
+      "low": 109.0,
+      "close": 110.0,
+      "volume": 1000001,
+      "source": "alpaca_market_data"
+    },
+    "IWM": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 119.5,
+      "high": 121.0,
+      "low": 119.0,
+      "close": 120.0,
+      "volume": 1000002,
+      "source": "alpaca_market_data"
+    },
+    "TLT": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 129.5,
+      "high": 131.0,
+      "low": 129.0,
+      "close": 130.0,
+      "volume": 1000003,
+      "source": "alpaca_market_data"
+    },
+    "GLD": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 139.5,
+      "high": 141.0,
+      "low": 139.0,
+      "close": 140.0,
+      "volume": 1000004,
+      "source": "alpaca_market_data"
+    },
+    "XLK": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 149.5,
+      "high": 151.0,
+      "low": 149.0,
+      "close": 150.0,
+      "volume": 1000005,
+      "source": "alpaca_market_data"
+    },
+    "XLF": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 159.5,
+      "high": 161.0,
+      "low": 159.0,
+      "close": 160.0,
+      "volume": 1000006,
+      "source": "alpaca_market_data"
+    },
+    "XLE": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 169.5,
+      "high": 171.0,
+      "low": 169.0,
+      "close": 170.0,
+      "volume": 1000007,
+      "source": "alpaca_market_data"
+    },
+    "XLV": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 179.5,
+      "high": 181.0,
+      "low": 179.0,
+      "close": 180.0,
+      "volume": 1000008,
+      "source": "alpaca_market_data"
+    },
+    "AAPL": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 189.5,
+      "high": 191.0,
+      "low": 189.0,
+      "close": 190.0,
+      "volume": 1000009,
+      "source": "alpaca_market_data"
+    },
+    "MSFT": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 199.5,
+      "high": 201.0,
+      "low": 199.0,
+      "close": 200.0,
+      "volume": 1000010,
+      "source": "alpaca_market_data"
+    },
+    "NVDA": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 209.5,
+      "high": 211.0,
+      "low": 209.0,
+      "close": 210.0,
+      "volume": 1000011,
+      "source": "alpaca_market_data"
+    },
+    "AMZN": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 219.5,
+      "high": 221.0,
+      "low": 219.0,
+      "close": 220.0,
+      "volume": 1000012,
+      "source": "alpaca_market_data"
+    },
+    "GOOGL": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 229.5,
+      "high": 231.0,
+      "low": 229.0,
+      "close": 230.0,
+      "volume": 1000013,
+      "source": "alpaca_market_data"
+    },
+    "META": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 239.5,
+      "high": 241.0,
+      "low": 239.0,
+      "close": 240.0,
+      "volume": 1000014,
+      "source": "alpaca_market_data"
+    },
+    "TSLA": {
+      "timestamp": "2026-05-28T14:30:00Z",
+      "open": 249.5,
+      "high": 251.0,
+      "low": 249.0,
+      "close": 250.0,
+      "volume": 1000015,
+      "source": "alpaca_market_data"
+    }
+  },
+  "asset_metadata": {
+    "SPY": {
+      "tradable": true,
+      "shortable": true,
+      "fractionable": true
+    },
+    "QQQ": {
+      "tradable": true,
+      "shortable": true,
+      "fractionable": true
+    },
+    "IWM": {
+      "tradable": true,
+      "shortable": true,
+      "fractionable": true
+    },
+    "TLT": {
+      "tradable": true,
+      "shortable": true,
+      "fractionable": true
+    },
+    "GLD": {
+      "tradable": true,
+      "shortable": true,
+      "fractionable": true
+    },
+    "XLK": {
+      "tradable": true,
+      "shortable": true,
+      "fractionable": true
+    },
+    "XLF": {
+      "tradable": true,
+      "shortable": true,
+      "fractionable": true
+    },
+    "XLE": {
+      "tradable": true,
+      "shortable": true,
+      "fractionable": true
+    },
+    "XLV": {
+      "tradable": true,
+      "shortable": true,
+      "fractionable": true
+    },
+    "AAPL": {
+      "tradable": true,
+      "shortable": true,
+      "fractionable": true
+    },
+    "MSFT": {
+      "tradable": true,
+      "shortable": true,
+      "fractionable": true
+    },
+    "NVDA": {
+      "tradable": true,
+      "shortable": true,
+      "fractionable": true
+    },
+    "AMZN": {
+      "tradable": true,
+      "shortable": true,
+      "fractionable": true
+    },
+    "GOOGL": {
+      "tradable": true,
+      "shortable": true,
+      "fractionable": true
+    },
+    "META": {
+      "tradable": true,
+      "shortable": true,
+      "fractionable": true
+    },
+    "TSLA": {
+      "tradable": true,
+      "shortable": true,
+      "fractionable": true
+    }
+  },
+  "discovery_health": {
+    "assets": {
+      "status": "fixture",
+      "count": 16
+    },
+    "movers": {
+      "status": "fixture",
+      "count": 0
+    },
+    "most_active": {
+      "status": "fixture",
+      "count": 0
+    }
+  },
+  "market_calendar_state": {
+    "source": "alpaca_market_clock",
+    "retrieved_at": "2026-05-28T14:30:00Z",
+    "is_open": true,
+    "next_open": "2026-05-29T13:30:00Z",
+    "next_close": "2026-05-28T20:00:00Z",
+    "freshness": "fresh"
+  },
+  "trend_summaries": {
+    "SPY": "bar \u05d5\u05e6\u05d9\u05d8\u05d5\u05d8 \u05e2\u05d3\u05db\u05e0\u05d9\u05d9\u05dd \u05db\u05dc\u05d5\u05dc\u05d9\u05dd; \u05e2\u05dc \u05d4-LLM \u05dc\u05d4\u05e1\u05d9\u05e7 \u05de\u05d2\u05de\u05d4 \u05de\u05d4\u05d4\u05e7\u05e9\u05e8 \u05e9\u05e1\u05d5\u05e4\u05e7.",
+    "QQQ": "bar \u05d5\u05e6\u05d9\u05d8\u05d5\u05d8 \u05e2\u05d3\u05db\u05e0\u05d9\u05d9\u05dd \u05db\u05dc\u05d5\u05dc\u05d9\u05dd; \u05e2\u05dc \u05d4-LLM \u05dc\u05d4\u05e1\u05d9\u05e7 \u05de\u05d2\u05de\u05d4 \u05de\u05d4\u05d4\u05e7\u05e9\u05e8 \u05e9\u05e1\u05d5\u05e4\u05e7.",
+    "IWM": "bar \u05d5\u05e6\u05d9\u05d8\u05d5\u05d8 \u05e2\u05d3\u05db\u05e0\u05d9\u05d9\u05dd \u05db\u05dc\u05d5\u05dc\u05d9\u05dd; \u05e2\u05dc \u05d4-LLM \u05dc\u05d4\u05e1\u05d9\u05e7 \u05de\u05d2\u05de\u05d4 \u05de\u05d4\u05d4\u05e7\u05e9\u05e8 \u05e9\u05e1\u05d5\u05e4\u05e7.",
+    "TLT": "bar \u05d5\u05e6\u05d9\u05d8\u05d5\u05d8 \u05e2\u05d3\u05db\u05e0\u05d9\u05d9\u05dd \u05db\u05dc\u05d5\u05dc\u05d9\u05dd; \u05e2\u05dc \u05d4-LLM \u05dc\u05d4\u05e1\u05d9\u05e7 \u05de\u05d2\u05de\u05d4 \u05de\u05d4\u05d4\u05e7\u05e9\u05e8 \u05e9\u05e1\u05d5\u05e4\u05e7.",
+    "GLD": "bar \u05d5\u05e6\u05d9\u05d8\u05d5\u05d8 \u05e2\u05d3\u05db\u05e0\u05d9\u05d9\u05dd \u05db\u05dc\u05d5\u05dc\u05d9\u05dd; \u05e2\u05dc \u05d4-LLM \u05dc\u05d4\u05e1\u05d9\u05e7 \u05de\u05d2\u05de\u05d4 \u05de\u05d4\u05d4\u05e7\u05e9\u05e8 \u05e9\u05e1\u05d5\u05e4\u05e7.",
+    "XLK": "bar \u05d5\u05e6\u05d9\u05d8\u05d5\u05d8 \u05e2\u05d3\u05db\u05e0\u05d9\u05d9\u05dd \u05db\u05dc\u05d5\u05dc\u05d9\u05dd; \u05e2\u05dc \u05d4-LLM \u05dc\u05d4\u05e1\u05d9\u05e7 \u05de\u05d2\u05de\u05d4 \u05de\u05d4\u05d4\u05e7\u05e9\u05e8 \u05e9\u05e1\u05d5\u05e4\u05e7.",
+    "XLF": "bar \u05d5\u05e6\u05d9\u05d8\u05d5\u05d8 \u05e2\u05d3\u05db\u05e0\u05d9\u05d9\u05dd \u05db\u05dc\u05d5\u05dc\u05d9\u05dd; \u05e2\u05dc \u05d4-LLM \u05dc\u05d4\u05e1\u05d9\u05e7 \u05de\u05d2\u05de\u05d4 \u05de\u05d4\u05d4\u05e7\u05e9\u05e8 \u05e9\u05e1\u05d5\u05e4\u05e7.",
+    "XLE": "bar \u05d5\u05e6\u05d9\u05d8\u05d5\u05d8 \u05e2\u05d3\u05db\u05e0\u05d9\u05d9\u05dd \u05db\u05dc\u05d5\u05dc\u05d9\u05dd; \u05e2\u05dc \u05d4-LLM \u05dc\u05d4\u05e1\u05d9\u05e7 \u05de\u05d2\u05de\u05d4 \u05de\u05d4\u05d4\u05e7\u05e9\u05e8 \u05e9\u05e1\u05d5\u05e4\u05e7.",
+    "XLV": "bar \u05d5\u05e6\u05d9\u05d8\u05d5\u05d8 \u05e2\u05d3\u05db\u05e0\u05d9\u05d9\u05dd \u05db\u05dc\u05d5\u05dc\u05d9\u05dd; \u05e2\u05dc \u05d4-LLM \u05dc\u05d4\u05e1\u05d9\u05e7 \u05de\u05d2\u05de\u05d4 \u05de\u05d4\u05d4\u05e7\u05e9\u05e8 \u05e9\u05e1\u05d5\u05e4\u05e7.",
+    "AAPL": "bar \u05d5\u05e6\u05d9\u05d8\u05d5\u05d8 \u05e2\u05d3\u05db\u05e0\u05d9\u05d9\u05dd \u05db\u05dc\u05d5\u05dc\u05d9\u05dd; \u05e2\u05dc \u05d4-LLM \u05dc\u05d4\u05e1\u05d9\u05e7 \u05de\u05d2\u05de\u05d4 \u05de\u05d4\u05d4\u05e7\u05e9\u05e8 \u05e9\u05e1\u05d5\u05e4\u05e7.",
+    "MSFT": "bar \u05d5\u05e6\u05d9\u05d8\u05d5\u05d8 \u05e2\u05d3\u05db\u05e0\u05d9\u05d9\u05dd \u05db\u05dc\u05d5\u05dc\u05d9\u05dd; \u05e2\u05dc \u05d4-LLM \u05dc\u05d4\u05e1\u05d9\u05e7 \u05de\u05d2\u05de\u05d4 \u05de\u05d4\u05d4\u05e7\u05e9\u05e8 \u05e9\u05e1\u05d5\u05e4\u05e7.",
+    "NVDA": "bar \u05d5\u05e6\u05d9\u05d8\u05d5\u05d8 \u05e2\u05d3\u05db\u05e0\u05d9\u05d9\u05dd \u05db\u05dc\u05d5\u05dc\u05d9\u05dd; \u05e2\u05dc \u05d4-LLM \u05dc\u05d4\u05e1\u05d9\u05e7 \u05de\u05d2\u05de\u05d4 \u05de\u05d4\u05d4\u05e7\u05e9\u05e8 \u05e9\u05e1\u05d5\u05e4\u05e7.",
+    "AMZN": "bar \u05d5\u05e6\u05d9\u05d8\u05d5\u05d8 \u05e2\u05d3\u05db\u05e0\u05d9\u05d9\u05dd \u05db\u05dc\u05d5\u05dc\u05d9\u05dd; \u05e2\u05dc \u05d4-LLM \u05dc\u05d4\u05e1\u05d9\u05e7 \u05de\u05d2\u05de\u05d4 \u05de\u05d4\u05d4\u05e7\u05e9\u05e8 \u05e9\u05e1\u05d5\u05e4\u05e7.",
+    "GOOGL": "bar \u05d5\u05e6\u05d9\u05d8\u05d5\u05d8 \u05e2\u05d3\u05db\u05e0\u05d9\u05d9\u05dd \u05db\u05dc\u05d5\u05dc\u05d9\u05dd; \u05e2\u05dc \u05d4-LLM \u05dc\u05d4\u05e1\u05d9\u05e7 \u05de\u05d2\u05de\u05d4 \u05de\u05d4\u05d4\u05e7\u05e9\u05e8 \u05e9\u05e1\u05d5\u05e4\u05e7.",
+    "META": "bar \u05d5\u05e6\u05d9\u05d8\u05d5\u05d8 \u05e2\u05d3\u05db\u05e0\u05d9\u05d9\u05dd \u05db\u05dc\u05d5\u05dc\u05d9\u05dd; \u05e2\u05dc \u05d4-LLM \u05dc\u05d4\u05e1\u05d9\u05e7 \u05de\u05d2\u05de\u05d4 \u05de\u05d4\u05d4\u05e7\u05e9\u05e8 \u05e9\u05e1\u05d5\u05e4\u05e7.",
+    "TSLA": "bar \u05d5\u05e6\u05d9\u05d8\u05d5\u05d8 \u05e2\u05d3\u05db\u05e0\u05d9\u05d9\u05dd \u05db\u05dc\u05d5\u05dc\u05d9\u05dd; \u05e2\u05dc \u05d4-LLM \u05dc\u05d4\u05e1\u05d9\u05e7 \u05de\u05d2\u05de\u05d4 \u05de\u05d4\u05d4\u05e7\u05e9\u05e8 \u05e9\u05e1\u05d5\u05e4\u05e7."
+  },
+  "source_freshness": [
+    {
+      "source": "alpaca_market_data",
+      "freshness": "fresh"
+    },
+    {
+      "source": "alpaca_market_clock",
+      "freshness": "fresh"
+    },
+    {
+      "source": "macro_calendar",
+      "freshness": "fresh"
+    },
+    {
+      "source": "news_summary",
+      "freshness": "fresh"
+    }
+  ],
+  "macro_news_summaries": [
+    {
+      "source": "macro_calendar",
+      "url": "https://traidan.local/fixture",
+      "retrieved_at": "2026-05-28T14:30:00Z",
+      "summary": "\u05d4\u05e7\u05e9\u05e8 macro_calendar \u05e9\u05dc \u05d4-fixture \u05d8\u05e8\u05d9.",
+      "freshness": "fresh"
+    },
+    {
+      "source": "news_summary",
+      "url": "https://traidan.local/fixture",
+      "retrieved_at": "2026-05-28T14:30:00Z",
+      "summary": "\u05d4\u05e7\u05e9\u05e8 news_summary \u05e9\u05dc \u05d4-fixture \u05d8\u05e8\u05d9.",
+      "freshness": "fresh"
+    }
+  ],
+  "unavailable_data_flags": []
+}
