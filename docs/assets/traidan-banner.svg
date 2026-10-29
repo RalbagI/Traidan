@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="360" viewBox="0 0 1280 360" role="img" aria-labelledby="title description">
+  <title id="title">Traidan — AI research. Paper trading.</title>
+  <desc id="description">A dark market-research desk with a mint-green Traidan wordmark and a diagram connecting research, validation, and simulation.</desc>
+  <defs>
+    <linearGradient id="background" x2="1" y2="1">
+      <stop stop-color="#091a27"/>
+      <stop offset="1" stop-color="#101523"/>
+    </linearGradient>
+    <linearGradient id="accent" x2="1" y2="0">
+      <stop stop-color="#60e6c2"/>
+      <stop offset="1" stop-color="#82caff"/>
+    </linearGradient>
+    <radialGradient id="glow">
+      <stop stop-color="#1d665e" stop-opacity=".45"/>
+      <stop offset="1" stop-color="#1d665e" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#a9c9e1" stroke-opacity=".055"/>
+    </pattern>
+  </defs>
+  <rect width="1280" height="360" rx="20" fill="url(#background)"/>
+  <rect width="1280" height="360" rx="20" fill="url(#grid)"/>
+  <ellipse cx="1040" cy="170" rx="350" ry="260" fill="url(#glow)"/>
+  <rect x="1" y="1" width="1278" height="358" rx="19" fill="none" stroke="#29404d"/>
+  <rect x="56" y="48" width="42" height="42" rx="11" fill="#60e6c2"/>
+  <path d="M66 60H88M77 60V79" stroke="#0b2028" stroke-width="5" stroke-linecap="square"/>
+  <text x="113" y="74" fill="#9eb8c8" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" letter-spacing="3">OPEN-SOURCE EQUITY LAB</text>
+  <text x="52" y="176" fill="#f0f8fc" font-family="Arial, Helvetica, sans-serif" font-size="80" font-weight="800" letter-spacing="-3">TRAIDAN<tspan fill="#60e6c2">.</tspan></text>
+  <text x="57" y="222" fill="#c5d5e1" font-family="Arial, Helvetica, sans-serif" font-size="25">AI research. Paper trading.</text>
+  <rect x="57" y="260" width="36" height="3" rx="1.5" fill="url(#accent)"/>
+  <text x="108" y="267" fill="#86a4b7" font-family="Arial, Helvetica, sans-serif" font-size="14">Python reasons. Rust validates. You inspect.</text>
+  <rect x="1045" y="43" width="176" height="34" rx="17" fill="#14352f" stroke="#2b6253"/>
+  <circle cx="1065" cy="60" r="4" fill="#60e6c2"/>
+  <text x="1078" y="65" fill="#9df0d7" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" letter-spacing="1">PAPER CAPITAL ONLY</text>
+  <path d="M727 151H799Q824 151 824 176V211Q824 236 851 236H906M1004 236H1031Q1055 236 1055 211V177Q1055 151 1081 151H1150" fill="none" stroke="url(#accent)" stroke-width="2" stroke-opacity=".65"/>
+  <path d="M1150 177V279H727V177" fill="none" stroke="#3d596a" stroke-width="1" stroke-dasharray="5 7"/>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <rect x="644" y="113" width="164" height="80" rx="12" fill="#102431" stroke="#3d6f81"/>
+    <text x="662" y="138" fill="#77b9d7" font-size="10" font-weight="700" letter-spacing="2">01 / PYTHON + LLM</text>
+    <text x="662" y="169" fill="#e6f5fc" font-size="21" font-weight="700">Research</text>
+    <rect x="865" y="197" width="180" height="80" rx="12" fill="#10342d" stroke="#4fa98f"/>
+    <text x="883" y="222" fill="#76d8b9" font-size="10" font-weight="700" letter-spacing="2">02 / RUST AUTHORITY</text>
+    <text x="883" y="253" fill="#e5fff4" font-size="21" font-weight="700">Validate</text>
+    <rect x="1064" y="113" width="164" height="80" rx="12" fill="#202b3d" stroke="#536887"/>
+    <text x="1082" y="138" fill="#9bbde4" font-size="10" font-weight="700" letter-spacing="2">03 / PAPER FILLS</text>
+    <text x="1082" y="169" fill="#edf3ff" font-size="21" font-weight="700">Simulate</text>
+    <rect x="808" y="298" width="250" height="25" rx="12" fill="#101d29"/>
+    <text x="933" y="315" fill="#7b9cae" text-anchor="middle" font-size="11" letter-spacing="1">REPLAYABLE EVIDENCE AT EVERY STEP</text>
+  </g>
+</svg>
