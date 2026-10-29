@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://traidan.local/schemas/llm_research_event.schema.json",
+  "title": "LLM Equity Research Event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "event_type",
+    "event_time",
+    "available_at",
+    "recorded_at",
+    "previous_hash",
+    "payload_hash",
+    "payload",
+    "event_hash"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "run_prepared",
+        "learning_delta",
+        "outcome_matured",
+        "corporate_actions_applied",
+        "agent_invocation",
+        "arbiter_recovery_invocation",
+        "rust_execution",
+        "arbiter_provenance",
+        "portfolio_mark",
+        "benchmark_mark",
+        "cost",
+        "pending_outcome",
+        "cycle_terminal",
+        "arm_finalized",
+        "run_failed",
+        "run_completed"
+      ]
+    },
+    "event_time": { "type": "string", "format": "date-time" },
+    "available_at": { "type": "string", "format": "date-time" },
+    "recorded_at": { "type": "string", "format": "date-time" },
+    "previous_hash": {
+      "oneOf": [
+        { "type": "null" },
+        { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+      ]
+    },
+    "payload_hash": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "payload": { "type": "object" },
+    "event_hash": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://traidan.local/schemas/llm_research_trial_registry.schema.json",
+  "title": "LLM Equity Research TrialRegistry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "selection_rule", "trial_count", "trials"],
+  "properties": {
+    "schema_version": { "type": "integer", "const": 1 },
+    "selection_rule": { "type": "string", "minLength": 1, "maxLength": 240 },
+    "trial_count": { "type": "integer", "minimum": 1 },
+    "trials": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["trial_id", "evidence_mode", "learning_mode", "inspected"],
+        "properties": {
+          "trial_id": { "type": "string", "minLength": 1, "maxLength": 120 },
+          "evidence_mode": { "type": "string", "enum": ["anonymized", "semantic", "as_built_reference"] },
+          "learning_mode": { "type": "string", "enum": ["frozen", "adaptive", "as_built"] },
+          "inspected": { "type": "boolean" }
+        }
+      }
+    }
+  }
+}

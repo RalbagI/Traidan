@@ -1,0 +1,173 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://traidan.local/schemas/llm_trade_slate.schema.json",
+  "title": "LLM Trade Slate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "cycle_id",
+    "generated_at",
+    "market_session",
+    "alpha_cards",
+    "swarm_agent_count",
+    "alpha_card_count",
+    "consensus_score",
+    "evidence_family_count",
+    "cost_threshold_bps",
+    "edge_gate_status",
+    "edge_gate_reason",
+    "selected_symbol",
+    "selected_side",
+    "selected_strategy_book",
+    "no_trade_reason",
+    "strategy_books"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "cycle_id": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "market_session": { "type": "string", "enum": ["premarket", "rth", "after_hours", "closed"] },
+    "alpha_cards": {
+      "type": "array",
+      "maxItems": 16,
+      "items": { "$ref": "#/$defs/alpha_card" }
+    },
+    "swarm_agent_count": { "type": "integer", "minimum": 0, "maximum": 16 },
+    "alpha_card_count": { "type": "integer", "minimum": 0, "maximum": 16 },
+    "consensus_score": { "type": "number", "minimum": 0, "maximum": 1 },
+    "evidence_family_count": { "type": "integer", "minimum": 0, "maximum": 16 },
+    "cost_threshold_bps": { "type": "number", "minimum": 0, "maximum": 20000 },
+    "edge_gate_status": {
+      "type": "string",
+      "enum": [
+        "pass",
+        "skipped_no_edge",
+        "skipped_non_rth",
+        "stale_context",
+        "high_spread",
+        "low_consensus",
+        "insufficient_evidence"
+      ]
+    },
+    "edge_gate_reason": { "type": "string", "minLength": 1, "maxLength": 240 },
+    "selected_symbol": {
+      "oneOf": [
+        { "type": "string", "pattern": "^[A-Z][A-Z0-9.\\-]{0,9}$" },
+        { "type": "null" }
+      ]
+    },
+    "selected_side": {
+      "oneOf": [
+        { "type": "string", "enum": ["long", "short"] },
+        { "type": "null" }
+      ]
+    },
+    "selected_strategy_book": {
+      "oneOf": [
+        { "type": "string", "minLength": 1, "maxLength": 80 },
+        { "type": "null" }
+      ]
+    },
+    "no_trade_reason": {
+      "oneOf": [
+        { "type": "string", "minLength": 1, "maxLength": 240 },
+        { "type": "null" }
+      ]
+    },
+    "strategy_books": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/$defs/strategy_book" }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "edge_gate_status": { "const": "pass" }
+        },
+        "required": ["edge_gate_status"]
+      },
+      "then": {
+        "properties": {
+          "selected_symbol": { "type": "string", "pattern": "^[A-Z][A-Z0-9.\\-]{0,9}$" },
+          "selected_side": { "type": "string", "enum": ["long", "short"] },
+          "selected_strategy_book": { "type": "string", "minLength": 1, "maxLength": 80 },
+          "no_trade_reason": { "type": "null" }
+        }
+      },
+      "else": {
+        "properties": {
+          "selected_symbol": { "type": "null" },
+          "selected_side": { "type": "null" },
+          "selected_strategy_book": { "type": "null" },
+          "no_trade_reason": { "type": "string", "minLength": 1, "maxLength": 240 }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "alpha_card": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "symbol",
+        "side",
+        "horizon_minutes",
+        "edge_type",
+        "thesis",
+        "evidence_refs",
+        "confidence",
+        "expected_alpha_bps",
+        "downside_bps",
+        "spread_bps",
+        "liquidity_score",
+        "invalidation",
+        "agent_role"
+      ],
+      "properties": {
+        "schema_version": { "const": 1 },
+        "symbol": { "type": "string", "pattern": "^[A-Z][A-Z0-9.\\-]{0,9}$" },
+        "side": { "type": "string", "enum": ["long", "short"] },
+        "horizon_minutes": { "type": "integer", "minimum": 1, "maximum": 390 },
+        "edge_type": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "thesis": { "type": "string", "minLength": 1, "maxLength": 1000 },
+        "evidence_refs": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 16,
+          "items": { "type": "string", "minLength": 1, "maxLength": 120 }
+        },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "expected_alpha_bps": { "type": "number", "minimum": -10000, "maximum": 10000 },
+        "downside_bps": { "type": "number", "minimum": 0, "maximum": 10000 },
+        "spread_bps": { "type": "number", "minimum": 0, "maximum": 10000 },
+        "liquidity_score": { "type": "number", "minimum": 0, "maximum": 1 },
+        "invalidation": { "type": "string", "minLength": 1, "maxLength": 1000 },
+        "agent_role": {
+          "type": "string",
+          "enum": [
+            "catalyst_scout",
+            "text_edge_analyst",
+            "neglected_small_cap_analyst",
+            "macro_fedspeak_analyst",
+            "technical_microstructure_analyst",
+            "short_contrarian_analyst",
+            "risk_cost_analyst",
+            "arbiter"
+          ]
+        }
+      }
+    },
+    "strategy_book": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["nav_usd", "alpha_usd"],
+      "properties": {
+        "nav_usd": { "type": "number" },
+        "alpha_usd": { "type": "number" }
+      }
+    }
+  }
+}

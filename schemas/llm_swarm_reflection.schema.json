@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://traidan.local/schemas/llm_swarm_reflection.schema.json",
+  "title": "LLM Swarm Reflection",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "cycle_id",
+    "created_at",
+    "strategy_book",
+    "lesson",
+    "outcome",
+    "next_watch_items",
+    "source"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "cycle_id": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "created_at": { "type": "string", "format": "date-time" },
+    "strategy_book": { "type": "string", "minLength": 1, "maxLength": 80 },
+    "lesson": { "type": "string", "minLength": 1, "maxLength": 1000 },
+    "outcome": { "type": "string", "minLength": 1, "maxLength": 1000 },
+    "next_watch_items": {
+      "type": "array",
+      "maxItems": 12,
+      "items": { "type": "string", "minLength": 1, "maxLength": 240 }
+    },
+    "source": { "type": "string", "minLength": 1, "maxLength": 120 }
+  }
+}

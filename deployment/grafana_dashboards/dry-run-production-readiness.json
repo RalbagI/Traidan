@@ -1,0 +1,280 @@
+{
+  "annotations": {
+    "list": []
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "panels": [
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 6,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "targets": [
+        {
+          "expr": "traidan_run_mode{mode=~\"dry_run|live\"}",
+          "legendFormat": "{{mode}} active",
+          "refId": "A"
+        }
+      ],
+      "title": "Run Mode",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "max": 1,
+          "min": 0,
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 6,
+        "x": 6,
+        "y": 0
+      },
+      "id": 2,
+      "targets": [
+        {
+          "expr": "up{job=\"traidan_rust\"}",
+          "legendFormat": "Rust backend up",
+          "refId": "A"
+        }
+      ],
+      "title": "Dry-Run Backend Up",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 6,
+        "x": 12,
+        "y": 0
+      },
+      "id": 3,
+      "targets": [
+        {
+          "expr": "traidan_dashboard_ws_connected_clients",
+          "legendFormat": "Connected dashboard clients",
+          "refId": "A"
+        },
+        {
+          "expr": "time() - traidan_dashboard_ws_last_message_timestamp_seconds",
+          "legendFormat": "Seconds since last frame",
+          "refId": "B"
+        }
+      ],
+      "title": "Dashboard WebSocket Clients",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ops"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 6,
+        "x": 18,
+        "y": 0
+      },
+      "id": 4,
+      "targets": [
+        {
+          "expr": "sum(rate(traidan_dashboard_ws_messages_total{message_type=\"fill\"}[5m]))",
+          "legendFormat": "Simulated fills/s",
+          "refId": "A"
+        }
+      ],
+      "title": "Simulated Fill Cadence",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 0,
+        "y": 6
+      },
+      "id": 5,
+      "targets": [
+        {
+          "expr": "traidan_oms_open_orders",
+          "legendFormat": "Open orders",
+          "refId": "A"
+        }
+      ],
+      "title": "OMS Open Orders",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 100
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 6,
+        "y": 6
+      },
+      "id": 6,
+      "targets": [
+        {
+          "expr": "traidan_var_utilization_ratio * 100",
+          "legendFormat": "VaR utilization %",
+          "refId": "A"
+        }
+      ],
+      "title": "Risk Utilization",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 12,
+        "y": 6
+      },
+      "id": 7,
+      "targets": [
+        {
+          "expr": "increase(traidan_var_breach_total[5m])",
+          "legendFormat": "Risk breaches in 5m",
+          "refId": "A"
+        }
+      ],
+      "title": "Risk Breach Count",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "max": 1,
+          "min": 0,
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 18,
+        "y": 6
+      },
+      "id": 8,
+      "targets": [
+        {
+          "expr": "traidan_firebase_deploy_success{environment=\"production\",job=\"firebase-hosting-deploy\"}",
+          "legendFormat": "Firebase deploy success",
+          "refId": "A"
+        }
+      ],
+      "title": "Firebase Deploy Health",
+      "type": "stat"
+    }
+  ],
+  "refresh": "5s",
+  "schemaVersion": 39,
+  "tags": [
+    "traidan",
+    "dry-run",
+    "production-readiness"
+  ],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-15m",
+    "to": "now"
+  },
+  "timezone": "browser",
+  "title": "Dry-Run Production Readiness",
+  "uid": "traidan-dry-run-production-readiness",
+  "version": 1
+}

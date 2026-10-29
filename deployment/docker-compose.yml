@@ -1,33 +1,64 @@
 services:
   questdb:
-    image: questdb/questdb:8.1.0
+    image: questdb/questdb:9.3.5
     ports:
-      - "9000:9000"   # HTTP / REST API + Web Console
-      - "9009:9009"   # InfluxDB Line Protocol (ILP) ingest
-      - "8812:8812"   # PostgreSQL wire protocol
+      - "127.0.0.1:9000:9000"   # HTTP / REST API + Web Console
+      - "127.0.0.1:9009:9009"   # InfluxDB Line Protocol (ILP) ingest
+      - "127.0.0.1:8812:8812"   # PostgreSQL wire protocol
+      - "127.0.0.1:9003:9003"   # Min health server + Prometheus metrics
     volumes:
       - questdb_data:/var/lib/questdb
     environment:
       QDB_TELEMETRY_ENABLED: "false"
+      QDB_METRICS_ENABLED: "true"
+      QDB_HTTP_MIN_ENABLED: "true"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:9003/metrics >/dev/null || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
 
   prometheus:
     image: prom/prometheus:v2.53.0
     ports:
-      - "9090:9090"
+      - "127.0.0.1:9090:9090"
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test: ["CMD", "promtool", "check", "config", "/etc/prometheus/prometheus.yml"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 10s
+    depends_on:
+      questdb:
+        condition: service_healthy
 
   grafana:
     image: grafana/grafana:11.1.0
     ports:
-      - "3000:3000"
+      - "127.0.0.1:3000:3000"
     environment:
-      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:?Set GRAFANA_ADMIN_PASSWORD before starting Grafana}
     volumes:
       - grafana_data:/var/lib/grafana
-      - ./grafana_dashboards:/etc/grafana/provisioning/dashboards:ro
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources:ro
+      - ./grafana/provisioning/alerting:/etc/grafana/provisioning/alerting:ro
+      - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards:ro
+      - ./grafana_dashboards:/var/lib/grafana/dashboards:ro
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:3000/api/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
     depends_on:
-      - prometheus
+      prometheus:
+        condition: service_healthy
 
 volumes:
   questdb_data:

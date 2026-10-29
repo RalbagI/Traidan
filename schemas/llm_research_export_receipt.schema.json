@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://traidan.local/schemas/llm_research_export_receipt.schema.json",
+  "title": "LLM Equity Research ExportReceipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "run_id", "generated_at", "archive_name",
+    "archive_size_bytes", "archive_sha256", "manifest_sha256", "checksums_sha256"
+  ],
+  "properties": {
+    "schema_version": { "type": "integer", "const": 1 },
+    "run_id": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "archive_name": { "type": "string", "minLength": 1, "maxLength": 240 },
+    "archive_size_bytes": { "type": "integer", "minimum": 1 },
+    "archive_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "manifest_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "checksums_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  }
+}

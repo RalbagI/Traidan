@@ -1,0 +1,337 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://traidan.local/schemas/llm_trading_decision.schema.json",
+  "title": "LLM-only equity dry-run trading decision",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "cycle_id",
+    "sequence",
+    "as_of",
+    "market_session",
+    "portfolio_nav_usd",
+    "commands",
+    "evidence",
+    "risk_assessment",
+    "memory_updates"
+  ],
+  "properties": {
+    "execution_policy": {
+      "type": "string",
+      "enum": [
+        "profit_driven_v1",
+        "fully_invested_v1"
+      ]
+    },
+    "cycle_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120
+    },
+    "sequence": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "as_of": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "market_session": {
+      "type": "string",
+      "enum": [
+        "premarket",
+        "rth",
+        "after_hours",
+        "closed"
+      ]
+    },
+    "portfolio_nav_usd": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "commands": {
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 16,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "action",
+          "symbol",
+          "rationale",
+          "confidence",
+          "max_notional_usd",
+          "evidence_refs"
+        ],
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "buy_notional",
+              "sell_notional"
+            ]
+          },
+          "reduce_only": {
+            "type": "boolean"
+          },
+          "symbol": {
+            "type": "string",
+            "pattern": "^[A-Z][A-Z0-9.\\-]{0,9}$"
+          },
+          "rationale": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1000
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "max_notional_usd": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "evidence_refs": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 120
+            }
+          },
+          "horizon": {
+            "type": "string",
+            "enum": [
+              "30m",
+              "60m",
+              "close",
+              "1d",
+              "5d"
+            ]
+          },
+          "forecast": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "edge_class",
+              "expected_excess_return_bps",
+              "probability_positive",
+              "return_p10_bps",
+              "return_p50_bps",
+              "return_p90_bps"
+            ],
+            "properties": {
+              "edge_class": {
+                "type": "string",
+                "enum": [
+                  "positive_edge",
+                  "least_bad_forced",
+                  "risk_reduction"
+                ]
+              },
+              "expected_excess_return_bps": {
+                "type": "number",
+                "minimum": -5000,
+                "maximum": 5000
+              },
+              "probability_positive": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "return_p10_bps": {
+                "type": "number",
+                "minimum": -5000,
+                "maximum": 5000
+              },
+              "return_p50_bps": {
+                "type": "number",
+                "minimum": -5000,
+                "maximum": 5000
+              },
+              "return_p90_bps": {
+                "type": "number",
+                "minimum": -5000,
+                "maximum": 5000
+              }
+            }
+          }
+        }
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 64,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "source",
+          "summary",
+          "retrieved_at",
+          "freshness"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          },
+          "source": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "url": {
+            "type": "string",
+            "maxLength": 500
+          },
+          "summary": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1000
+          },
+          "retrieved_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "freshness": {
+            "type": "string",
+            "enum": [
+              "fresh",
+              "stale",
+              "unavailable"
+            ]
+          }
+        }
+      }
+    },
+    "risk_assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "summary",
+        "max_loss_scenario",
+        "risk_limit_verdict"
+      ],
+      "properties": {
+        "summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000
+        },
+        "max_loss_scenario": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000
+        },
+        "risk_limit_verdict": {
+          "type": "string",
+          "enum": [
+            "pass"
+          ]
+        }
+      }
+    },
+    "memory_updates": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 16,
+      "items": {
+        "$ref": "llm_memory_event.schema.json"
+      }
+    },
+    "target_portfolio": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "account_cash_usd",
+        "account_positions",
+        "holdings"
+      ],
+      "properties": {
+        "schema_version": {
+          "type": "integer",
+          "const": 1
+        },
+        "account_cash_usd": {
+          "type": "number",
+          "minimum": 0
+        },
+        "account_positions": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number",
+            "not": {"const": 0}
+          }
+        },
+        "holdings": {
+          "type": "array",
+          "minItems": 20,
+          "maxItems": 40,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "symbol",
+              "weight_bps"
+            ],
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "pattern": "^[A-Z][A-Z0-9.\\-]{0,9}$"
+              },
+              "weight_bps": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 500
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "required": [
+          "execution_policy"
+        ],
+        "properties": {
+          "execution_policy": {
+            "const": "fully_invested_v1"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "target_portfolio"
+        ],
+        "properties": {
+          "commands": {
+            "maxItems": 0
+          }
+        }
+      },
+      "else": {
+        "not": {
+          "required": [
+            "target_portfolio"
+          ]
+        },
+        "properties": {
+          "commands": {
+            "minItems": 1
+          }
+        }
+      }
+    }
+  ]
+}

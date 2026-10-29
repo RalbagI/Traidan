@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://traidan.local/schemas/llm_research_rust_execution.schema.json",
+  "title": "LLM Equity Research Rust Execution",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "run_id",
+    "arm",
+    "cycle_id",
+    "attempt",
+    "simulated_received_at",
+    "decision_object",
+    "snapshot_object",
+    "result_object",
+    "status",
+    "error"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "run_id": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "arm": { "type": "string", "minLength": 1, "maxLength": 80 },
+    "cycle_id": { "type": "string", "minLength": 1, "maxLength": 160 },
+    "attempt": { "type": "integer", "minimum": 0, "maximum": 2 },
+    "simulated_received_at": { "type": "string", "format": "date-time" },
+    "decision_object": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "snapshot_object": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "result_object": {
+      "oneOf": [
+        { "type": "null" },
+        { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+      ]
+    },
+    "status": { "type": "string", "enum": ["completed", "rejected"] },
+    "error": { "type": ["string", "null"], "maxLength": 500 }
+  }
+}

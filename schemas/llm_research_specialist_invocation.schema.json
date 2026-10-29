@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://traidan.local/schemas/llm_research_specialist_invocation.schema.json",
+  "title": "LLM Equity Research Specialist Invocation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "invocation_id",
+    "run_id",
+    "arm",
+    "cycle_id",
+    "model_cycle_id",
+    "role",
+    "model",
+    "effort",
+    "model_catalog_hash",
+    "prompt_template_hash",
+    "input_object",
+    "output",
+    "output_hash",
+    "validation_status",
+    "diagnostic_only",
+    "latency_ms",
+    "exit_code",
+    "usage",
+    "actual_cost_usd",
+    "imputed_cost_usd",
+    "error"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "invocation_id": { "type": "string", "minLength": 1, "maxLength": 240 },
+    "run_id": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "arm": { "type": "string", "minLength": 1, "maxLength": 80 },
+    "cycle_id": { "type": "string", "minLength": 1, "maxLength": 160 },
+    "model_cycle_id": { "type": "string", "minLength": 1, "maxLength": 240 },
+    "role": {
+      "type": "string",
+      "enum": [
+        "catalyst_scout",
+        "text_edge_analyst",
+        "neglected_small_cap_analyst",
+        "macro_fed_analyst",
+        "technical_microstructure_analyst",
+        "short_contrarian_analyst",
+        "risk_cost_analyst",
+        "portfolio_learning_analyst",
+        "final_arbiter",
+        "single_reviewer"
+      ]
+    },
+    "model": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "effort": { "type": "string", "minLength": 1, "maxLength": 32 },
+    "model_catalog_hash": { "type": "string", "minLength": 1, "maxLength": 96 },
+    "prompt_template_hash": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "input_object": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "output": { "type": ["object", "null"] },
+    "output_hash": {
+      "oneOf": [
+        { "type": "null" },
+        { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+      ]
+    },
+    "validation_status": { "type": "string", "enum": ["valid", "invalid"] },
+    "failure_kind": {
+      "type": ["string", "null"],
+      "enum": [
+        "model_output_invalid",
+        "infrastructure_failure",
+        "input_rejected",
+        null
+      ]
+    },
+    "diagnostic_only": { "type": "boolean" },
+    "latency_ms": { "type": "integer", "minimum": 0 },
+    "exit_code": { "type": "integer", "minimum": -255, "maximum": 255 },
+    "usage": {
+      "type": "object",
+      "propertyNames": { "pattern": "^[A-Za-z0-9._-]{1,80}$" },
+      "additionalProperties": {
+        "type": ["number", "integer", "string", "boolean", "object", "null"]
+      }
+    },
+    "actual_cost_usd": { "type": "number", "minimum": 0 },
+    "imputed_cost_usd": { "type": "number", "minimum": 0 },
+    "error": { "type": ["string", "null"], "maxLength": 500 }
+  }
+}

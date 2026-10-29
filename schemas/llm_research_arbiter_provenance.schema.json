@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://traidan.local/schemas/llm_research_arbiter_provenance.schema.json",
+  "title": "LLM Equity Research Arbiter Provenance",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "run_id",
+    "arm",
+    "cycle_id",
+    "specialist_invocation_ids",
+    "valid_specialist_count",
+    "risk_cost_specialist_valid",
+    "arbiter_invocation_id",
+    "selected_card_ids",
+    "diagnostic_only",
+    "trade_allowed",
+    "block_reason",
+    "simulated_received_at",
+    "refreshed_snapshot_object"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "run_id": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "arm": { "type": "string", "minLength": 1, "maxLength": 80 },
+    "cycle_id": { "type": "string", "minLength": 1, "maxLength": 160 },
+    "specialist_invocation_ids": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1, "maxLength": 240 }
+    },
+    "valid_specialist_count": { "type": "integer", "minimum": 0, "maximum": 8 },
+    "risk_cost_specialist_valid": { "type": "boolean" },
+    "risk_cost_veto": { "type": "boolean" },
+    "research_protocol": { "type": "string", "enum": ["swarm-v1", "swarm-v2"] },
+    "arbiter_invocation_id": { "type": "string", "minLength": 1, "maxLength": 240 },
+    "selected_card_ids": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1, "maxLength": 160 }
+    },
+    "diagnostic_only": { "type": "boolean" },
+    "trade_allowed": { "type": "boolean" },
+    "block_reason": { "type": ["string", "null"], "maxLength": 240 },
+    "simulated_received_at": { "type": "string", "format": "date-time" },
+    "refreshed_snapshot_object": {
+      "oneOf": [
+        { "type": "null" },
+        { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+      ]
+    }
+  }
+}

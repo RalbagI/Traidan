@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://traidan.local/schemas/llm_memory_event.schema.json",
+  "title": "LLM equity dry-run memory event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "event_id",
+    "cycle_id",
+    "created_at",
+    "thesis",
+    "outcome",
+    "conclusion",
+    "prompt_adjustment",
+    "next_cycle_watch_items"
+  ],
+  "properties": {
+    "event_id": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "cycle_id": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "created_at": { "type": "string", "format": "date-time" },
+    "thesis": { "type": "string", "minLength": 1, "maxLength": 1000 },
+    "outcome": { "type": "string", "minLength": 1, "maxLength": 1000 },
+    "conclusion": { "type": "string", "minLength": 1, "maxLength": 1000 },
+    "prompt_adjustment": { "type": "string", "maxLength": 1000 },
+    "next_cycle_watch_items": {
+      "type": "array",
+      "maxItems": 12,
+      "items": { "type": "string", "minLength": 1, "maxLength": 240 }
+    }
+  }
+}

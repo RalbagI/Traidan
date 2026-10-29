@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://traidan.local/schemas/raw_observation_event.schema.json",
+  "title": "Future multi-asset raw observation event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "observation_id",
+    "source_id",
+    "retrieved_at",
+    "event_time",
+    "payload_hash",
+    "storage_uri",
+    "parser_version",
+    "freshness",
+    "http_status",
+    "entity_refs",
+    "instrument_refs",
+    "geo_refs",
+    "quality_flags",
+    "storage_policy"
+  ],
+  "properties": {
+    "schema_version": { "type": "integer", "const": 1 },
+    "observation_id": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "source_id": { "type": "string", "pattern": "^[a-z][a-z0-9_]{2,80}$" },
+    "retrieved_at": { "type": "string", "format": "date-time" },
+    "event_time": { "type": "string", "format": "date-time" },
+    "payload_hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "storage_uri": { "type": "string", "minLength": 1, "maxLength": 500 },
+    "parser_version": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "freshness": { "type": "string", "enum": ["fresh", "stale", "unavailable"] },
+    "http_status": { "type": "integer", "minimum": 100, "maximum": 599 },
+    "entity_refs": { "type": "array", "maxItems": 64, "items": { "type": "string", "minLength": 1, "maxLength": 120 } },
+    "instrument_refs": { "type": "array", "maxItems": 64, "items": { "type": "string", "minLength": 1, "maxLength": 120 } },
+    "geo_refs": { "type": "array", "maxItems": 64, "items": { "type": "string", "minLength": 1, "maxLength": 120 } },
+    "quality_flags": { "type": "array", "maxItems": 32, "items": { "type": "string", "minLength": 1, "maxLength": 120 } },
+    "storage_policy": {
+      "type": "string",
+      "enum": [
+        "metadata_summary_and_licensed_raw",
+        "metadata_summary_and_public_raw",
+        "metadata_summary_only",
+        "no_raw_storage"
+      ]
+    }
+  }
+}

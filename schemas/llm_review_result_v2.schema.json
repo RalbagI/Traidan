@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://traidan.local/schemas/llm_review_result_v2.schema.json",
+  "title": "Compact GPT-5.6-Sol equity review result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "verdict", "intents", "risk_flags", "abstain_reason"],
+  "properties": {
+    "schema_version": { "type": "integer", "const": 2 },
+    "verdict": { "type": "string", "enum": ["trade", "abstain"] },
+    "intents": {
+      "type": "array",
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["candidate_id", "direction", "horizon", "confidence", "thesis", "invalidation", "notional_usd", "evidence_refs"],
+        "properties": {
+          "candidate_id": { "type": "string", "minLength": 1, "maxLength": 120 },
+          "direction": { "type": "string", "enum": ["long", "short", "flat"] },
+          "horizon": { "type": "string", "enum": ["30m", "60m", "close", "1d", "5d"] },
+          "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+          "thesis": { "type": "string", "minLength": 1, "maxLength": 500 },
+          "invalidation": { "type": "string", "minLength": 1, "maxLength": 300 },
+          "notional_usd": { "type": "number", "exclusiveMinimum": 0 },
+          "evidence_refs": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 6,
+            "uniqueItems": true,
+            "items": { "type": "string", "minLength": 1, "maxLength": 120 }
+          }
+        }
+      }
+    },
+    "risk_flags": {
+      "type": "array",
+      "maxItems": 12,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1, "maxLength": 120 }
+    },
+    "abstain_reason": { "type": ["string", "null"], "maxLength": 300 }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "verdict": { "const": "trade" } }, "required": ["verdict"] },
+      "then": {
+        "properties": {
+          "intents": {
+            "minItems": 1,
+            "contains": {
+              "type": "object",
+              "properties": { "notional_usd": { "minimum": 25 } },
+              "required": ["notional_usd"]
+            }
+          },
+          "abstain_reason": { "type": "null" }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "verdict": { "const": "abstain" } }, "required": ["verdict"] },
+      "then": { "properties": { "intents": { "maxItems": 0 }, "abstain_reason": { "type": "string", "minLength": 1 } } }
+    }
+  ]
+}

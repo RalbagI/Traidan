@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://traidan.local/schemas/llm_research_arbiter_result.schema.json",
+  "title": "LLM Equity Research Arbiter Result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "verdict", "selected_cards", "commands", "reason"],
+  "properties": {
+    "schema_version": { "type": "integer", "const": 1 },
+    "verdict": { "type": "string", "enum": ["trade", "abstain"] },
+    "selected_cards": {
+      "type": "array",
+      "maxItems": 12,
+      "items": { "type": "string", "minLength": 1, "maxLength": 160 }
+    },
+    "commands": {
+      "type": "array",
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "symbol",
+          "side",
+          "notional_usd",
+          "horizon",
+          "edge_class",
+          "expected_excess_return_bps",
+          "probability_positive",
+          "return_p10_bps",
+          "return_p50_bps",
+          "return_p90_bps",
+          "strategy_book",
+          "discovery_lane"
+        ],
+        "properties": {
+          "symbol": { "type": "string", "pattern": "^(?:[A-Z][A-Z0-9.\\-]{0,9}|SYM[0-9]{3,6})$" },
+          "side": { "type": "string", "enum": ["long", "short"] },
+          "notional_usd": { "type": "number", "exclusiveMinimum": 0, "maximum": 10000 },
+          "horizon": { "type": "string", "enum": ["30m", "60m", "close", "1d", "5d"] },
+          "edge_class": { "type": "string", "enum": ["positive_edge", "least_bad_forced", "risk_reduction"] },
+          "expected_excess_return_bps": { "type": "number", "minimum": -5000, "maximum": 5000 },
+          "probability_positive": { "type": "number", "minimum": 0, "maximum": 1 },
+          "return_p10_bps": { "type": "number", "minimum": -5000, "maximum": 5000 },
+          "return_p50_bps": { "type": "number", "minimum": -5000, "maximum": 5000 },
+          "return_p90_bps": { "type": "number", "minimum": -5000, "maximum": 5000 },
+          "strategy_book": { "type": "string", "minLength": 1, "maxLength": 80 },
+          "discovery_lane": { "type": "string", "minLength": 1, "maxLength": 80 }
+        }
+      }
+    },
+    "reason": { "type": "string", "minLength": 1, "maxLength": 1000 }
+  }
+}

@@ -1,0 +1,8 @@
+# Copy this file to backend.tf for production remote state.
+terraform {
+  backend "s3" {
+    bucket = "replace-with-your-state-bucket"
+    key    = "prod/terraform.tfstate"
+    region = "ap-northeast-1"
+  }
+}

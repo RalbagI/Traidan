@@ -3,7 +3,7 @@ global:
   evaluation_interval: 5s
 
 scrape_configs:
-  - job_name: traderalbag_rust
+  - job_name: traidan_rust
     static_configs:
       - targets: ["host.docker.internal:9100"]
     metrics_path: /metrics

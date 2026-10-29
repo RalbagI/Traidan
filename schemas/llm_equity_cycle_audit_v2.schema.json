@@ -1,0 +1,515 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://traidan.local/schemas/llm_equity_cycle_audit_v2.schema.json",
+  "title": "LLM Equity Cycle Audit V2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "cycle_kind",
+    "status",
+    "cycle_id",
+    "created_at",
+    "target_release_at",
+    "market_session",
+    "as_of",
+    "symbols_sample",
+    "context",
+    "decision",
+    "attempts",
+    "costs",
+    "rust_response",
+    "artifact_refs"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 2
+    },
+    "cycle_kind": {
+      "type": "string",
+      "enum": [
+        "run_once",
+        "discovery_scan",
+        "prepare_release",
+        "release",
+        "news_scan"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "posted",
+        "prepared",
+        "blocked",
+        "failed",
+        "ready_existing",
+        "already_handled",
+        "skipped_no_edge",
+        "research_only",
+        "skipped_stale"
+      ]
+    },
+    "cycle_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "target_release_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "market_session": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "as_of": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "symbols_sample": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 12
+    },
+    "context": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/context_ref"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "decision": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/payload_ref"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "attempts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/attempt"
+      }
+    },
+    "costs": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "number"
+      }
+    },
+    "rust_response": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/scalar_object"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "artifact_refs": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "swarm_agent_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "alpha_card_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "consensus_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "edge_gate_status": {
+      "type": "string",
+      "enum": [
+        "pass",
+        "skipped_no_edge",
+        "skipped_non_rth",
+        "stale_context",
+        "high_spread",
+        "low_consensus",
+        "insufficient_evidence"
+      ]
+    },
+    "selected_strategy_book": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "no_trade_reason": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "portfolio_nav_usd": {
+      "type": "number"
+    },
+    "total_pnl_usd": {
+      "type": "number"
+    },
+    "gross_exposure_pct": {
+      "type": "number"
+    },
+    "net_alpha_usd": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "number"
+      }
+    },
+    "llm_invoked": {
+      "type": "boolean"
+    },
+    "cost_basis": {
+      "type": "string",
+      "enum": [
+        "actual_llm_invocation",
+        "preflight_estimate",
+        "zero_llm_skip"
+      ]
+    },
+    "validation_repair_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "exploration_mode": {
+      "type": "string",
+      "enum": [
+        "balanced",
+        "max_discovery"
+      ]
+    },
+    "speculative_candidate_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "exploration_candidate_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "speculative_command_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "speculative_command_notional_usd": {
+      "type": "number",
+      "minimum": 0
+    },
+    "discovery_lane_counts": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 0
+      }
+    },
+    "risk_budget_status": {
+      "type": "string",
+      "enum": [
+        "within_budget",
+        "over_budget",
+        "no_order_intent",
+        "no_candidates",
+        "unknown_nav"
+      ]
+    },
+    "public_event_card_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "public_event_impacted_symbol_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "public_event_max_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "event_candidate_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "event_command_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "mandatory_trade_required": {
+      "type": "boolean"
+    },
+    "mandatory_trade_status": {
+      "type": "string",
+      "enum": ["not_applicable", "recovering", "accepted", "blocked"]
+    },
+    "parent_cycle_id": {
+      "type": ["string", "null"],
+      "maxLength": 120
+    },
+    "recovery_attempt_count": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2
+    },
+    "rust_rejection_reasons": {
+      "type": "array",
+      "maxItems": 12,
+      "items": {"type": "string", "maxLength": 160}
+    },
+    "mandatory_accepted_notional_usd": {
+      "type": ["number", "null"],
+      "minimum": 0
+    },
+    "mandatory_required_total_notional_usd": {
+      "type": ["number", "null"],
+      "minimum": 0
+    },
+    "mandatory_accepted_total_notional_usd": {
+      "type": ["number", "null"],
+      "minimum": 0
+    },
+    "mandatory_remaining_notional_usd": {
+      "type": ["number", "null"],
+      "minimum": 0
+    },
+    "execution_attempts": {
+      "type": "array",
+      "maxItems": 3,
+      "items": {"$ref": "#/$defs/execution_attempt"}
+    },
+    "accepted_trades": {
+      "type": "array",
+      "maxItems": 9,
+      "items": {"$ref": "#/$defs/accepted_trade"}
+    },
+    "review_attestation": {
+      "$ref": "#/$defs/review_attestation"
+    },
+    "dashboard_summary_thesis": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1200
+    }
+  },
+  "$defs": {
+    "accepted_trade": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "symbol",
+        "action",
+        "accepted_notional_usd",
+        "horizon",
+        "outcome_status",
+        "exposure_effect"
+      ],
+      "properties": {
+        "symbol": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 20
+        },
+        "action": {
+          "type": "string",
+          "enum": ["buy", "sell"]
+        },
+        "accepted_notional_usd": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "horizon": {
+          "type": "string",
+          "enum": ["30m", "60m", "close", "1d", "5d"]
+        },
+        "outcome_status": {
+          "type": "string",
+          "enum": ["pending", "settled", "expired_unresolved"]
+        },
+        "exposure_effect": {
+          "type": "string",
+          "enum": ["add", "reduce", "mixed"]
+        }
+      }
+    },
+    "hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "review_attestation": {
+      "type": "object",
+      "description": "Per-cycle model-review summary. invocation_count covers all model calls; order_action and order_notional_usd describe the latest valid model-selected intent, not deterministic fallback or per-attempt history. Accepted fields describe the final qualifying Rust acceptance and remain null when Rust rejects it.",
+      "additionalProperties": false,
+      "required": [
+        "required",
+        "status",
+        "model",
+        "reasoning_effort",
+        "invocation_count",
+        "order_action",
+        "order_notional_usd",
+        "accepted_side",
+        "accepted_notional_usd",
+        "accepted_total_notional_usd"
+      ],
+      "properties": {
+        "required": {"type": "boolean"},
+        "status": {
+          "type": "string",
+          "enum": ["not_required", "compliant", "failed"]
+        },
+        "model": {"type": "string", "enum": ["gpt-5.6-sol", "gpt-6-astra"]},
+        "reasoning_effort": {"type": "string", "const": "xhigh"},
+        "invocation_count": {"type": "integer", "minimum": 0},
+        "order_action": {
+          "type": ["string", "null"],
+          "enum": ["buy_notional", "sell_notional", null]
+        },
+        "order_notional_usd": {"type": ["number", "null"], "minimum": 0},
+        "accepted_side": {
+          "type": ["string", "null"],
+          "enum": ["buy", "sell", null]
+        },
+        "accepted_notional_usd": {"type": ["number", "null"], "minimum": 0},
+        "accepted_total_notional_usd": {"type": ["number", "null"], "minimum": 0}
+      }
+    },
+    "execution_attempt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "cycle_id",
+        "requested_notional_usd",
+        "accepted_notional_usd",
+        "remaining_notional_usd",
+        "rust_rejection_reasons"
+      ],
+      "properties": {
+        "cycle_id": {"type": "string", "maxLength": 120},
+        "requested_notional_usd": {"type": "number", "minimum": 0},
+        "accepted_notional_usd": {"type": "number", "minimum": 0},
+        "remaining_notional_usd": {"type": "number", "minimum": 0},
+        "rust_rejection_reasons": {
+          "type": "array",
+          "maxItems": 12,
+          "items": {"type": "string", "maxLength": 160}
+        }
+      }
+    },
+    "payload_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sha256",
+        "json_bytes"
+      ],
+      "properties": {
+        "sha256": {
+          "$ref": "#/$defs/hash"
+        },
+        "json_bytes": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "context_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sha256",
+        "json_bytes",
+        "symbol_count"
+      ],
+      "properties": {
+        "sha256": {
+          "$ref": "#/$defs/hash"
+        },
+        "json_bytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "symbol_count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "attempt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "attempt",
+        "status",
+        "decision_sha256",
+        "decision_json_bytes"
+      ],
+      "properties": {
+        "attempt": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "valid",
+            "invalid"
+          ]
+        },
+        "decision_sha256": {
+          "$ref": "#/$defs/hash"
+        },
+        "decision_json_bytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "validation_error": {
+          "type": "string"
+        },
+        "invalid_top_level_keys": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "scalar_object": {
+      "type": "object",
+      "additionalProperties": {
+        "type": [
+          "string",
+          "number",
+          "boolean",
+          "null"
+        ]
+      }
+    }
+  }
+}

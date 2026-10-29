@@ -1,0 +1,123 @@
+apiVersion: 1
+
+groups:
+  - orgId: 1
+    name: traidan-llm-equity
+    folder: Traidan
+    interval: 10s
+    rules:
+      - uid: dry-run-backend-down
+        title: LLM equity dry-run backend target down
+        condition: A
+        data:
+          - refId: A
+            datasourceUid: prometheus
+            relativeTimeRange:
+              from: 60
+              to: 0
+            model:
+              expr: 'up{job="traidan_rust"} == 0'
+              instant: true
+              intervalMs: 1000
+              maxDataPoints: 43200
+              refId: A
+        noDataState: OK
+        execErrState: Error
+        for: 30s
+        annotations:
+          summary: "LLM equity dry-run Rust metrics target is down"
+        labels:
+          severity: page
+          run_mode: dry_run
+      - uid: dry-run-dashboard-stream-outage
+        title: LLM Equity Desk stream has no recent messages
+        condition: A
+        data:
+          - refId: A
+            datasourceUid: prometheus
+            relativeTimeRange:
+              from: 120
+              to: 0
+            model:
+              expr: 'time() - traidan_dashboard_ws_last_message_timestamp_seconds > 60 and on() traidan_run_mode{mode="dry_run"} == 1 and on() traidan_dashboard_ws_connected_clients > 0'
+              instant: true
+              intervalMs: 1000
+              maxDataPoints: 43200
+              refId: A
+        noDataState: OK
+        execErrState: Error
+        for: 60s
+        annotations:
+          summary: "LLM Equity Desk WebSocket stream has stopped sending frames"
+        labels:
+          severity: page
+          run_mode: dry_run
+      - uid: llm-equity-drawdown-warning
+        title: LLM equity dry-run drawdown above 4 percent
+        condition: A
+        data:
+          - refId: A
+            datasourceUid: prometheus
+            relativeTimeRange:
+              from: 300
+              to: 0
+            model:
+              expr: 'traidan_paper_max_drawdown_pct > 0.04'
+              instant: true
+              intervalMs: 1000
+              maxDataPoints: 43200
+              refId: A
+        noDataState: OK
+        execErrState: Error
+        for: 30s
+        annotations:
+          summary: "LLM equity dry-run drawdown is near the hard stop"
+        labels:
+          severity: warning
+          run_mode: dry_run
+      - uid: llm-equity-drawdown-page
+        title: LLM equity dry-run drawdown stop reached
+        condition: A
+        data:
+          - refId: A
+            datasourceUid: prometheus
+            relativeTimeRange:
+              from: 300
+              to: 0
+            model:
+              expr: 'traidan_paper_max_drawdown_pct >= 0.05'
+              instant: true
+              intervalMs: 1000
+              maxDataPoints: 43200
+              refId: A
+        noDataState: OK
+        execErrState: Error
+        for: 10s
+        annotations:
+          summary: "LLM equity dry-run total drawdown stop reached"
+        labels:
+          severity: page
+          run_mode: dry_run
+      - uid: firebase-hosting-deploy-failed
+        title: Firebase Hosting deploy failed
+        condition: A
+        data:
+          - refId: A
+            datasourceUid: prometheus
+            relativeTimeRange:
+              from: 300
+              to: 0
+            model:
+              expr: 'traidan_firebase_deploy_success{environment="production",job="firebase-hosting-deploy"} == 0'
+              instant: true
+              intervalMs: 1000
+              maxDataPoints: 43200
+              refId: A
+        noDataState: OK
+        execErrState: Error
+        for: 60s
+        annotations:
+          summary: "Default-branch Firebase Hosting deploy reported failure"
+        labels:
+          severity: warning
+          run_mode: dry_run

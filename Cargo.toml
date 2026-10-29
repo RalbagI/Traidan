@@ -1,27 +1,83 @@
 [workspace]
-members = ["src"]
+members = ["."]
 resolver = "2"
 
 [workspace.package]
 version = "0.1.0"
 edition = "2021"
-authors = ["Traderalbag Contributors"]
+authors = ["Traidan Contributors"]
+license = "MIT"
 
 [workspace.dependencies]
-tokio        = { version = "1", features = ["full"] }
-serde        = { version = "1", features = ["derive"] }
-serde_json   = "1"
-zmq          = "0.10"
-arrow        = { version = "53", features = ["ffi"] }
-pyo3         = { version = "0.22", features = ["extension-module"] }
-disruptor-rs = "0.4"
-tracing      = "0.1"
-tracing-subscriber = { version = "0.3", features = ["env-filter"] }
-uuid         = { version = "1", features = ["v4"] }
-prometheus   = "0.13"
+anyhow = "=1.0.102"
+arrow = { version = "=53.4.1", features = ["ffi"] }
+base64 = "=0.22.1"
+chrono = { version = "=0.4.39", default-features = false, features = ["clock", "serde"] }
+futures-util = { version = "=0.3.32", features = ["sink"] }
+prometheus = { version = "=0.13.4", features = ["process"] }
+pyo3 = { version = "=0.22.6", features = ["extension-module"] }
+ring = "=0.17.14"
+serde = { version = "=1.0.228", features = ["derive"] }
+serde_json = { version = "=1.0.149", features = ["float_roundtrip"] }
+tokio = { version = "=1.52.1", features = ["full"] }
+tokio-tungstenite = { version = "=0.29.0", features = ["rustls-tls-webpki-roots"] }
+tokio-rustls = { version = "=0.26.4", default-features = false, features = ["ring"] }
+tracing = "=0.1.44"
+tracing-subscriber = { version = "=0.3.23", features = ["env-filter"] }
+uuid = { version = "=1.23.1", features = ["v4"] }
+webpki-roots = "=1.0.7"
+
+[package]
+name = "traidan"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[lib]
+name = "_rust"
+path = "src/lib.rs"
+# cdylib for the pyo3 extension module (matches [tool.maturin] in pyproject.toml).
+# rlib for cargo test / cargo bench / downstream Rust consumers.
+crate-type = ["cdylib", "rlib"]
+
+[[bin]]
+name = "traidan"
+path = "src/main.rs"
+
+[dependencies]
+tokio.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+arrow.workspace = true
+base64.workspace = true
+chrono.workspace = true
+pyo3.workspace = true
+futures-util.workspace = true
+ring.workspace = true
+tokio-tungstenite.workspace = true
+tokio-rustls.workspace = true
+# Disruptor pattern is implemented in-tree (src/disruptor/) — no external crate.
+tracing.workspace = true
+tracing-subscriber.workspace = true
+uuid.workspace = true
+webpki-roots.workspace = true
+prometheus.workspace = true
+anyhow.workspace = true
 
 [profile.release]
 opt-level     = 3
 lto           = true
 codegen-units = 1
 panic         = "abort"
+
+# This crate is in early scaffold phase: many modules are TODO stubs whose
+# fields/methods aren't wired up yet. Tighten these lints back to `deny`
+# once Phase 2 (Rust Execution Layer per project_context.md) is implemented.
+[lints.rust]
+dead_code        = "allow"
+unused_variables = "allow"
+unused_imports   = "warn"
+
+[lints.clippy]
+new_without_default = "allow"

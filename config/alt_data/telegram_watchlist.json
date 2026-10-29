@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "runtime_status": "public_metadata_watchlist",
+  "entries": [
+    {
+      "source_id": "telegram_tradingview",
+      "watch_id": "telegram-tradingview",
+      "channel_username": "@tradingview",
+      "channel_url": "https://t.me/tradingview",
+      "display_name": "TradingView",
+      "visibility": "public",
+      "verification_status": "verified_public",
+      "storage_policy": "metadata_summary_only",
+      "raw_text_allowed": false,
+      "license_approved": true,
+      "quality_flags": [
+        "official_verified",
+        "market_charts"
+      ],
+      "production_gate": "Confirm Telegram API terms, source verification, metadata-only retention, and no AI training use before paper context."
+    }
+  ]
+}
